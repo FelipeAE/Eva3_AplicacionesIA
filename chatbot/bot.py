@@ -29,7 +29,7 @@ def conectar_db():
 # ------------------- Configuración de Anthropic -------------------
 
 # Inicializamos el cliente de Anthropic con la clave correspondiente
-client = anthropic.Anthropic(api_key="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")
+client = anthropic.Anthropic(api_key="aqui va tu key")
 
 # Estructura de tablas (adaptar al dataset real)
 ESTRUCTURA_TABLA = """
