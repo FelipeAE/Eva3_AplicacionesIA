@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4" style="max-width: 400px;">
+  <h3 class="mb-4">🔐 Iniciar sesión</h3>
+  {% if form.errors %}
+    <div class="alert alert-danger">Credenciales inválidas. Intenta de nuevo.</div>
+  {% endif %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label>Usuario</label>
+      {{ form.username }}
+    </div>
+    <div class="mb-3">
+      <label>Contraseña</label>
+      {{ form.password }}
+    </div>
+    <button type="submit" class="btn btn-primary">Entrar</button>
+  </form>
+</div>
+{% endblock %}

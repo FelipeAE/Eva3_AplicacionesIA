@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>💬 Conversación: {{ sesion.nombre_sesion }}</h2>
+  <p><strong>Estado:</strong> {{ sesion.estado }}</p>
+
+  <a href="{% url 'chat_home' %}" class="btn btn-secondary">⬅ Volver</a>
+  {% if sesion.estado == "activa" %}
+    <form method="post" action="{% url 'finalizar_sesion' sesion.id_sesion %}" style="display:inline;">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-warning float-end ms-2">Finalizar sesión</button>
+    </form>
+  {% endif %}
+
+  {% if not bloqueadas %}
+    <a href="{% url 'borrar_sesion' sesion.id_sesion %}" class="btn btn-danger float-end">🗑️ Borrar</a>
+  {% else %}
+    <span class="text-warning float-end">⚠️ Contiene preguntas bloqueadas</span>
+  {% endif %}
+
+  <div class="mt-4">
+    {% for msg in mensajes %}
+      <div class="mb-3">
+        <strong>{{ msg.tipo_emisor|title }}:</strong>
+        <div class="border p-2 rounded">{{ msg.contenido }}</div>
+        <small class="text-muted">{{ msg.fecha|date:"Y-m-d H:i" }}</small>
+      </div>
+    {% empty %}
+      <p>No hay mensajes en esta sesión.</p>
+    {% endfor %}
+  </div>
+  {% if not solo_lectura %}
+  <hr>
+  <h5>Enviar nueva pregunta</h5>
+  <form method="post" class="mt-3">
+    {% csrf_token %}
+    <div class="mb-3">
+      <textarea name="pregunta" class="form-control" rows="3" placeholder="Escribe tu pregunta..."></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+  </form>
+{% else %}
+  <div class="alert alert-info mt-4">
+    📖 Esta sesión está finalizada. No puedes agregar más mensajes.
+  </div>
+{% endif %}
+
+
+</div>
+{% endblock %}

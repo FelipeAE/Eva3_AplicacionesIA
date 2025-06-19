@@ -1,0 +1,138 @@
+2025-06-18 22:50:38,878 - WARNING - Not Found: /login/
+2025-06-18 22:50:39,100 - WARNING - Not Found: /favicon.ico
+2025-06-18 22:56:21,471 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot_web\settings.py changed, reloading.
+2025-06-18 23:02:48,620 - ERROR - Internal Server Error: /sesion/1/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: column preguntas_bloqueadas.sesion_id does not exist
+LINE 1: SELECT 1 AS "a" FROM "preguntas_bloqueadas" WHERE "preguntas...
+                                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 19, in chat_sesion
+    bloqueadas = PreguntaBloqueada.objects.filter(sesion=sesion).exists()
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\models\query.py", line 1296, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 674, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\compiler.py", line 1591, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: column preguntas_bloqueadas.sesion_id does not exist
+LINE 1: SELECT 1 AS "a" FROM "preguntas_bloqueadas" WHERE "preguntas...
+                                                          ^
+
+2025-06-18 23:02:56,683 - ERROR - Internal Server Error: /sesion/4/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: column preguntas_bloqueadas.sesion_id does not exist
+LINE 1: SELECT 1 AS "a" FROM "preguntas_bloqueadas" WHERE "preguntas...
+                                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 19, in chat_sesion
+    bloqueadas = PreguntaBloqueada.objects.filter(sesion=sesion).exists()
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\models\query.py", line 1296, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 674, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\compiler.py", line 1591, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: column preguntas_bloqueadas.sesion_id does not exist
+LINE 1: SELECT 1 AS "a" FROM "preguntas_bloqueadas" WHERE "preguntas...
+                                                          ^
+
+2025-06-18 23:25:46,568 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-18 23:27:23,667 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-18 23:27:27,311 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-18 23:27:33,087 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-18 23:29:05,179 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-18 23:31:38,616 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-18 23:33:36,663 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-18 23:33:43,412 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-18 23:36:07,998 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-18 23:36:59,419 - INFO - Nombre de sesión 11 actualizado: dame el top 5 de honorarios
+2025-06-18 23:37:04,204 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-18 23:37:10,519 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-18 23:38:45,068 - WARNING - Method Not Allowed (GET): /accounts/logout/
+2025-06-18 23:41:15,914 - WARNING - Method Not Allowed (GET): /accounts/logout/
+2025-06-18 23:47:10,956 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\urls.py changed, reloading.
+2025-06-18 23:47:16,221 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\urls.py changed, reloading.
+2025-06-18 23:47:23,330 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\urls.py changed, reloading.
+2025-06-18 23:47:50,246 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-18 23:51:04,074 - INFO - Nombre de sesión 12 actualizado: donde esta saturno
+2025-06-18 23:52:10,259 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-18 23:54:46,717 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
