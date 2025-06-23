@@ -3,7 +3,10 @@ import psycopg2.extras
 import anthropic
 from datetime import datetime
 import logging
-import re
+import re, json
+from dotenv import load_dotenv
+import os
+from chatbot.models import ContextoPrompt
 
 # Configurar logging
 logging.basicConfig(
@@ -29,7 +32,9 @@ def conectar_db():
 # ------------------- Configuración de Anthropic -------------------
 
 # Inicializamos el cliente de Anthropic con la clave correspondiente
-client = anthropic.Anthropic(api_key="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")
+load_dotenv()
+client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+
 
 # Estructura de tablas (adaptar al dataset real)
 ESTRUCTURA_TABLA = """
@@ -238,18 +243,18 @@ def eliminar_sesion_si_valida(id_borrar):
 # ------------------- GENERACIÓN DE CONSULTA SQL (ANTHROPIC) -------------------
 
 def obtener_consulta_sql(pregunta, historial):
+    contexto = ContextoPrompt.objects.filter(activo=True).first()
+    prompt_base = contexto.prompt_sistema if contexto else "Eres un asistente experto en análisis de datos para RRHH universitarios. Responde preguntas basadas en las siguientes tablas relacionales:\n" + ESTRUCTURA_TABLA
     """
     Utiliza Anthropic (Claude) para generar la consulta SQL en base a la pregunta del usuario
     y el historial de mensajes de la sesión.
-    (Implementación idéntica al script original para formular el prompt.) :contentReference[oaicite:3]{index=3}
     """
-    system_prompt = f"""Eres un asistente experto en análisis de datos para RRHH universitarios. Solo puedes responder preguntas basadas en las siguientes tablas relacionales:
-{ESTRUCTURA_TABLA}
+    system_prompt = f"""{prompt_base} 
 
 Y la siguiente consulta en lenguaje natural:
-"{pregunta}"
+\"{pregunta}\"
 
-Genera una consulta SQL para el motor mariadb que responda la pregunta del usuario. Sigue estas pautas:
+Genera una consulta SQL para el motor PostgreSQL que responda la pregunta del usuario. Sigue estas pautas:
 1. Usa exclusivamente las tablas y relaciones provistas.
 2. Utiliza JOIN cuando sea necesario combinar información entre tablas.
 3. Usa LIKE y funciones como LOWER para permitir búsquedas insensibles a mayúsculas.
@@ -262,14 +267,7 @@ Genera una consulta SQL para el motor mariadb que responda la pregunta del usuar
 10. Usa alias de tabla cuando sea necesario para mantener claridad.
 11. Si el usuario pregunta por “los anteriores” o “las personas anteriores”, asume que se refiere al resultado más reciente de la conversación, y genera una consulta coherente filtrando por los mismos nombres si es posible.
 12. Si no puedes generar una consulta válida o la pregunta no se relaciona con el contexto de los datos, responde amablemente que no puedes responder a esa consulta.
-13. No utilices LIMIT dentro de subconsultas (subqueries) con IN o JOIN, ya que no es compatible con MariaDB. Si necesitas filtrar top N, usa una subconsulta que se junte con JOIN externo.
 
-Ejemplo: 
-En lugar de:
-    WHERE persona.id IN (SELECT id FROM ... LIMIT 3)
-
-Haz:
-    JOIN (SELECT id FROM ... LIMIT 3) AS top ON ...
 
 Tu respuesta debe ser solo la consulta SQL, sin explicaciones adicionales.
 """
@@ -289,7 +287,7 @@ def generar_respuesta_final(pregunta, resultado_sql, historial):
     """
     Utiliza Anthropic (Claude) para generar la respuesta de usuario final en lenguaje natural,
     a partir de la pregunta original y los resultados obtenidos de la consulta SQL.
-    (Implementación idéntica al script original para formular el prompt y limpiar la respuesta.) :contentReference[oaicite:4]{index=4}
+    
     """
     prompt = f"""Dada la siguiente pregunta:
 \"{pregunta}\"
@@ -297,9 +295,10 @@ Y los siguientes resultados:
 {resultado_sql}
 
 Genera una respuesta clara para un usuario de RRHH universitario. Sigue estas pautas:
-- No menciones SQL ni aspectos técnicos.
 - Usa lenguaje profesional y ordenado.
 - Muestra cifras con formato de pesos chilenos ($ 1.000.000).
+- Si hay varios datos personales o contratos, incluye un JSON al final así: {{"id_contrato": [12, 15, 18]}} o {{"id_persona": [5, 7, 9]}}.
+- Esa instrucción no debe ser explicada, solo insertada al final como dato estructurado, la instruccion que esta puesta arriba es solo un ejemplo no tomes ese dato para dar informacion, tienes que buscar el dato especifico de la informacion que se te pide o de la persona como tal o contrato de donde extrajiste la informacion.
 - Si no hay datos, indica que no se encontró información y sugiere reformular la pregunta.
 """
 
@@ -310,7 +309,31 @@ Genera una respuesta clara para un usuario de RRHH universitario. Sigue estas pa
         messages=[{"role": "user", "content": prompt}] + historial
     )
 
-    return response.content[0].text.strip()
+    texto = response.content[0].text.strip()
+
+    # Buscar JSON al final del texto
+    patron_json = r'(\{.*\})\s*$'  # Busca algo tipo {...} al final
+    coincidencia = re.search(patron_json, texto)
+
+    ids = []
+    tipo = None
+
+    if coincidencia:
+        try:
+            json_str = coincidencia.group(1)
+            data = json.loads(json_str)
+            # Ej: {'id_persona': [5, 7, 9]} → tipo: persona, ids: [5, 7, 9]
+            for clave, valores in data.items():
+                if clave.startswith("id_") and isinstance(valores, list):
+                    tipo = clave  # 'id_persona'
+                    ids = valores
+                    # Remueve el JSON del final del texto limpio
+                    texto = texto[:coincidencia.start()].strip()
+                    break
+        except json.JSONDecodeError:
+            pass  # Si falla el parseo, ignora
+
+    return texto, tipo, ids
 
 # ------------------- VISUALIZACIÓN DE SESIONES -------------------
 

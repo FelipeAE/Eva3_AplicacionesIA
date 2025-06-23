@@ -2,6 +2,11 @@
 {% block content %}
 <div class="container mt-4">
   <h2>💬 Conversación: {{ sesion.nombre_sesion }}</h2>
+  {% if user.is_staff and contexto_activo%}
+    <div class="alert alert-info">
+      🧠 <strong>Contexto activo:</strong> {{ contexto_activo.nombre }}
+    </div>
+  {% endif %}
   <p><strong>Estado:</strong> {{ sesion.estado }}</p>
 
   <a href="{% url 'chat_home' %}" class="btn btn-secondary">⬅ Volver</a>
@@ -22,8 +27,25 @@
     {% for msg in mensajes %}
       <div class="mb-3">
         <strong>{{ msg.tipo_emisor|title }}:</strong>
-        <div class="border p-2 rounded">{{ msg.contenido }}</div>
+        <div class="border p-2 rounded">{{ msg.contenido|linebreaks }}</div>
         <small class="text-muted">{{ msg.fecha|date:"Y-m-d H:i" }}</small>
+
+        {% if msg.tipo_emisor == "ia" and request.session.id_contrato %}
+        <button class="btn btn-sm btn-outline-info mt-2" onclick="verDetalles({{ request.session.id_contrato }})">🔍 Ver detalles Contrato</button>
+        {% endif %}
+
+        {% if msg.tipo_emisor == "ia" and msg.metadata %}
+          {% for id in msg.metadata.ids %}
+            <button class="btn btn-sm btn-outline-info mt-2" onclick="verDetallesContexto('{{ tipo }}', {{ valor }})">🔍 Ver detalle {{ tipo|cut:"id_" }} #{{ valor }}</button>
+          {% endfor %}
+        {% endif %}
+
+
+        {% if msg.tipo_emisor == "ia" %}
+        <div class="mt-2">
+          <button class="btn btn-sm btn-outline-info" onclick="verDetallesGenericos()">📄 Ver detalles</button>
+        </div>
+        {% endif %}
       </div>
     {% empty %}
       <p>No hay mensajes en esta sesión.</p>
@@ -32,19 +54,21 @@
   {% if not solo_lectura %}
   <hr>
   <h5>Enviar nueva pregunta</h5>
-  <form method="post" class="mt-3">
+  <form method="post" id="form-pregunta" class="mt-3">
     {% csrf_token %}
     <div class="mb-3">
-      <textarea name="pregunta" class="form-control" rows="3" placeholder="Escribe tu pregunta..."></textarea>
+      <textarea name="pregunta" id="input-pregunta" class="form-control" rows="3" placeholder="Escribe tu pregunta..."></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Enviar</button>
+    <button type="submit" id="btn-enviar" class="btn btn-primary">Enviar</button>
   </form>
+  
 {% else %}
   <div class="alert alert-info mt-4">
     📖 Esta sesión está finalizada. No puedes agregar más mensajes.
   </div>
 {% endif %}
 
-
 </div>
 {% endblock %}
+
+

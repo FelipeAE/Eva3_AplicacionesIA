@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models import JSONField
 
 class Persona(models.Model):
     id_persona = models.AutoField(primary_key=True)
@@ -62,6 +64,7 @@ class MensajeChat(models.Model):
     tipo_emisor = models.CharField(max_length=10)
     contenido = models.TextField()
     fecha = models.DateTimeField()
+    metadata = JSONField(null=True, blank=True)
 
     class Meta:
         managed = False
@@ -77,3 +80,22 @@ class PreguntaBloqueada(models.Model):
     class Meta:
         managed = False
         db_table = 'preguntas_bloqueadas'
+        
+class TerminoExcluido(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    palabra = models.CharField(max_length=100)
+
+    class Meta:
+        db_table = 'terminos_excluidos'
+        
+class ContextoPrompt(models.Model):
+    nombre = models.CharField(max_length=100)
+    prompt_sistema = models.TextField()
+    activo = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'contextos_prompt'
+
+    def __str__(self):
+        return self.nombre
+

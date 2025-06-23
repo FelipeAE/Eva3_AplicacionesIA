@@ -136,3 +136,881 @@ LINE 1: SELECT 1 AS "a" FROM "preguntas_bloqueadas" WHERE "preguntas...
 2025-06-18 23:51:04,074 - INFO - Nombre de sesión 12 actualizado: donde esta saturno
 2025-06-18 23:52:10,259 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
 2025-06-18 23:54:46,717 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-19 17:19:45,064 - INFO - Nombre de sesión 13 actualizado: dame el top 5 de honorarios pero solo de mujeres
+2025-06-19 17:19:45,544 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2025-06-19 17:19:45,631 - ERROR - Internal Server Error: /sesion/13/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 53, in chat_sesion
+    sql_query = obtener_consulta_sql(pregunta, historial)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py", line 277, in obtener_consulta_sql
+    response = client.messages.create(
+        model="claude-3-5-haiku-latest",
+    ...<2 lines>...
+        messages=[{"role": "user", "content": system_prompt}] + historial
+    )
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_utils\_utils.py", line 275, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\resources\messages\messages.py", line 953, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/v1/messages",
+        ^^^^^^^^^^^^^^^
+    ...<23 lines>...
+        stream_cls=Stream[RawMessageStreamEvent],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1336, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1013, in request
+    return self._request(
+           ~~~~~~~~~~~~~^
+        cast_to=cast_to,
+        ^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        retries_taken=retries_taken,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1117, in _request
+    raise self._make_status_error_from_response(err.response) from None
+anthropic.AuthenticationError: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}}
+2025-06-19 17:21:31,498 - INFO - Nombre de sesión 14 actualizado: dame el top 5 de honorarios pero solo de mujeres
+2025-06-19 17:21:31,838 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2025-06-19 17:21:31,862 - ERROR - Internal Server Error: /sesion/14/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 53, in chat_sesion
+    sql_query = obtener_consulta_sql(pregunta, historial)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py", line 277, in obtener_consulta_sql
+    response = client.messages.create(
+        model="claude-3-5-haiku-latest",
+    ...<2 lines>...
+        messages=[{"role": "user", "content": system_prompt}] + historial
+    )
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_utils\_utils.py", line 275, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\resources\messages\messages.py", line 953, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/v1/messages",
+        ^^^^^^^^^^^^^^^
+    ...<23 lines>...
+        stream_cls=Stream[RawMessageStreamEvent],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1336, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1013, in request
+    return self._request(
+           ~~~~~~~~~~~~~^
+        cast_to=cast_to,
+        ^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        retries_taken=retries_taken,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1117, in _request
+    raise self._make_status_error_from_response(err.response) from None
+anthropic.AuthenticationError: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}}
+2025-06-19 17:28:10,756 - INFO - Nombre de sesión 15 actualizado: dame el top 5 de honorarios pero solo de mujeres
+2025-06-19 17:28:11,155 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2025-06-19 17:28:11,182 - ERROR - Internal Server Error: /sesion/15/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 53, in chat_sesion
+    sql_query = obtener_consulta_sql(pregunta, historial)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py", line 280, in obtener_consulta_sql
+    response = client.messages.create(
+        model="claude-3-5-haiku-latest",
+    ...<2 lines>...
+        messages=[{"role": "user", "content": system_prompt}] + historial
+    )
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_utils\_utils.py", line 275, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\resources\messages\messages.py", line 953, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/v1/messages",
+        ^^^^^^^^^^^^^^^
+    ...<23 lines>...
+        stream_cls=Stream[RawMessageStreamEvent],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1336, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1013, in request
+    return self._request(
+           ~~~~~~~~~~~~~^
+        cast_to=cast_to,
+        ^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        retries_taken=retries_taken,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1117, in _request
+    raise self._make_status_error_from_response(err.response) from None
+anthropic.AuthenticationError: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}}
+2025-06-19 17:33:31,296 - INFO - Nombre de sesión 16 actualizado: dame el top 5 de honorarios pero solo de mujeres
+2025-06-19 17:33:31,722 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2025-06-19 17:33:31,747 - ERROR - Internal Server Error: /sesion/16/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 53, in chat_sesion
+    sql_query = obtener_consulta_sql(pregunta, historial)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py", line 280, in obtener_consulta_sql
+    response = client.messages.create(
+        model="claude-3-5-haiku-latest",
+    ...<2 lines>...
+        messages=[{"role": "user", "content": system_prompt}] + historial
+    )
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_utils\_utils.py", line 275, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\resources\messages\messages.py", line 953, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/v1/messages",
+        ^^^^^^^^^^^^^^^
+    ...<23 lines>...
+        stream_cls=Stream[RawMessageStreamEvent],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1336, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1013, in request
+    return self._request(
+           ~~~~~~~~~~~~~^
+        cast_to=cast_to,
+        ^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        retries_taken=retries_taken,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1117, in _request
+    raise self._make_status_error_from_response(err.response) from None
+anthropic.AuthenticationError: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}}
+2025-06-19 17:35:01,710 - INFO - Nombre de sesión 17 actualizado: dame el top 5 de honorarios
+2025-06-19 17:35:02,099 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2025-06-19 17:35:02,123 - ERROR - Internal Server Error: /sesion/17/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 53, in chat_sesion
+    sql_query = obtener_consulta_sql(pregunta, historial)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py", line 282, in obtener_consulta_sql
+    response = client.messages.create(
+        model="claude-3-5-haiku-latest",
+    ...<2 lines>...
+        messages=[{"role": "user", "content": system_prompt}] + historial
+    )
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_utils\_utils.py", line 275, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\resources\messages\messages.py", line 953, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/v1/messages",
+        ^^^^^^^^^^^^^^^
+    ...<23 lines>...
+        stream_cls=Stream[RawMessageStreamEvent],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1336, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1013, in request
+    return self._request(
+           ~~~~~~~~~~~~~^
+        cast_to=cast_to,
+        ^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        retries_taken=retries_taken,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1117, in _request
+    raise self._make_status_error_from_response(err.response) from None
+anthropic.AuthenticationError: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}}
+2025-06-19 17:52:05,518 - INFO - Nombre de sesión 20 actualizado: que meses estan incluidos en los honorarios
+2025-06-19 17:52:07,392 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-19 17:52:10,280 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-19 17:56:00,243 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\models.py changed, reloading.
+2025-06-19 17:57:05,240 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\models.py changed, reloading.
+2025-06-19 17:57:08,584 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\models.py changed, reloading.
+2025-06-19 18:16:53,439 - ERROR - Internal Server Error: /sesion/20/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 23, in chat_sesion
+    if any(e.lower() in pregunta.lower() for e in excluidos):
+       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 23, in <genexpr>
+    if any(e.lower() in pregunta.lower() for e in excluidos):
+                        ^^^^^^^^
+NameError: cannot access free variable 'pregunta' where it is not associated with a value in enclosing scope
+2025-06-19 18:18:08,852 - ERROR - Internal Server Error: /sesion/19/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 23, in chat_sesion
+    if any(e.lower() in pregunta.lower() for e in excluidos):
+       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 23, in <genexpr>
+    if any(e.lower() in pregunta.lower() for e in excluidos):
+                        ^^^^^^^^
+NameError: cannot access free variable 'pregunta' where it is not associated with a value in enclosing scope
+2025-06-19 18:18:10,745 - ERROR - Internal Server Error: /sesion/12/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 23, in chat_sesion
+    if any(e.lower() in pregunta.lower() for e in excluidos):
+       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 23, in <genexpr>
+    if any(e.lower() in pregunta.lower() for e in excluidos):
+                        ^^^^^^^^
+NameError: cannot access free variable 'pregunta' where it is not associated with a value in enclosing scope
+2025-06-19 18:18:11,877 - ERROR - Internal Server Error: /sesion/11/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 23, in chat_sesion
+    if any(e.lower() in pregunta.lower() for e in excluidos):
+       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 23, in <genexpr>
+    if any(e.lower() in pregunta.lower() for e in excluidos):
+                        ^^^^^^^^
+NameError: cannot access free variable 'pregunta' where it is not associated with a value in enclosing scope
+2025-06-19 18:18:13,297 - ERROR - Internal Server Error: /sesion/3/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 23, in chat_sesion
+    if any(e.lower() in pregunta.lower() for e in excluidos):
+       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 23, in <genexpr>
+    if any(e.lower() in pregunta.lower() for e in excluidos):
+                        ^^^^^^^^
+NameError: cannot access free variable 'pregunta' where it is not associated with a value in enclosing scope
+2025-06-19 18:18:15,669 - ERROR - Internal Server Error: /sesion/2/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 23, in chat_sesion
+    if any(e.lower() in pregunta.lower() for e in excluidos):
+       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 23, in <genexpr>
+    if any(e.lower() in pregunta.lower() for e in excluidos):
+                        ^^^^^^^^
+NameError: cannot access free variable 'pregunta' where it is not associated with a value in enclosing scope
+2025-06-19 18:18:17,516 - ERROR - Internal Server Error: /sesion/20/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 23, in chat_sesion
+    if any(e.lower() in pregunta.lower() for e in excluidos):
+       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 23, in <genexpr>
+    if any(e.lower() in pregunta.lower() for e in excluidos):
+                        ^^^^^^^^
+NameError: cannot access free variable 'pregunta' where it is not associated with a value in enclosing scope
+2025-06-19 18:18:29,319 - ERROR - Internal Server Error: /sesion/22/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 23, in chat_sesion
+    if any(e.lower() in pregunta.lower() for e in excluidos):
+       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 23, in <genexpr>
+    if any(e.lower() in pregunta.lower() for e in excluidos):
+                        ^^^^^^^^
+NameError: cannot access free variable 'pregunta' where it is not associated with a value in enclosing scope
+2025-06-19 18:23:53,767 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-19 18:24:04,761 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-19 18:24:17,469 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-19 18:25:05,711 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-19 18:25:31,923 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-19 18:25:40,545 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-19 18:26:02,709 - ERROR - Internal Server Error: /sesion/22/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 23, in chat_sesion
+    if any(e.lower() in pregunta.lower() for e in excluidos):
+       ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 23, in <genexpr>
+    if any(e.lower() in pregunta.lower() for e in excluidos):
+                        ^^^^^^^^
+NameError: cannot access free variable 'pregunta' where it is not associated with a value in enclosing scope
+2025-06-21 17:29:50,474 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py changed, reloading.
+2025-06-21 17:32:32,304 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 17:32:39,484 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 17:35:38,993 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py changed, reloading.
+2025-06-21 17:42:54,461 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-21 17:43:10,774 - INFO - Nombre de sesión 24 actualizado: dame las profesiones
+2025-06-21 17:43:13,328 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 17:43:19,333 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 17:47:31,931 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 17:47:32,111 - ERROR - Internal Server Error: /sesion/24/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 103, in _execute
+    return self.cursor.execute(sql)
+           ~~~~~~~~~~~~~~~~~~~^^^^^
+psycopg2.errors.GroupingError: subquery uses ungrouped column "f2.id_funcion" from outer query
+LINE 18:         WHERE id_funcion = f2.id_funcion 
+                                    ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 73, in chat_sesion
+    cur.execute(sql_query)
+    ~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 103, in _execute
+    return self.cursor.execute(sql)
+           ~~~~~~~~~~~~~~~~~~~^^^^^
+django.db.utils.ProgrammingError: subquery uses ungrouped column "f2.id_funcion" from outer query
+LINE 18:         WHERE id_funcion = f2.id_funcion 
+                                    ^
+
+2025-06-21 17:51:42,746 - INFO - Nombre de sesión 25 actualizado: dame las profesiones
+2025-06-21 17:51:44,937 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 17:51:50,785 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 17:53:04,688 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 17:53:12,727 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 17:58:01,049 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 17:58:01,085 - ERROR - Internal Server Error: /sesion/25/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 103, in _execute
+    return self.cursor.execute(sql)
+           ~~~~~~~~~~~~~~~~~~~^^^^^
+psycopg2.errors.AmbiguousColumn: column reference "id_persona" is ambiguous
+LINE 4:     SELECT id_persona 
+                   ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 73, in chat_sesion
+    cur.execute(sql_query)
+    ~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\db\backends\utils.py", line 103, in _execute
+    return self.cursor.execute(sql)
+           ~~~~~~~~~~~~~~~~~~~^^^^^
+django.db.utils.ProgrammingError: column reference "id_persona" is ambiguous
+LINE 4:     SELECT id_persona 
+                   ^
+
+2025-06-21 17:59:06,493 - INFO - Nombre de sesión 26 actualizado: hola
+2025-06-21 18:00:57,975 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 18:01:01,447 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 18:01:37,953 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 18:01:41,660 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 18:03:53,382 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 18:04:02,080 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 18:05:26,979 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 18:05:32,351 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 18:06:10,503 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\models.py changed, reloading.
+2025-06-21 18:06:17,115 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\models.py changed, reloading.
+2025-06-21 18:53:28,592 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-21 18:53:36,806 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-21 18:54:18,837 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-21 18:54:24,994 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-21 18:54:52,009 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-21 18:54:56,066 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-21 18:55:25,175 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\urls.py changed, reloading.
+2025-06-21 18:55:29,003 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\urls.py changed, reloading.
+2025-06-21 18:55:38,131 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\urls.py changed, reloading.
+2025-06-21 18:55:48,014 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\urls.py changed, reloading.
+2025-06-21 18:55:52,457 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\urls.py changed, reloading.
+2025-06-21 18:56:00,597 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\urls.py changed, reloading.
+2025-06-21 19:17:41,140 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-21 19:18:18,496 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-21 19:18:25,369 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-21 19:18:30,532 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-21 19:18:42,386 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-21 19:22:32,319 - INFO - Nombre de sesión 27 actualizado: dame el top 5 honorarios
+2025-06-21 19:22:35,258 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 19:22:40,212 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 19:27:25,299 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-21 19:27:53,148 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-21 19:28:19,847 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\urls.py changed, reloading.
+2025-06-21 19:28:24,485 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\urls.py changed, reloading.
+2025-06-21 19:28:29,217 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\urls.py changed, reloading.
+2025-06-21 19:28:43,270 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\urls.py changed, reloading.
+2025-06-21 19:28:52,076 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\urls.py changed, reloading.
+2025-06-21 19:28:59,896 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\urls.py changed, reloading.
+2025-06-21 21:06:59,560 - ERROR - Internal Server Error: /sesion/19/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'empty'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 110, in chat_sesion
+    return render(request, 'chatbot/sesion.html', {
+        'sesion': sesion,
+    ...<3 lines>...
+        'contexto_activo': contexto_activo,
+    })
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 567, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 45: 'empty', expected 'elif', 'else' or 'endif'. Did you forget to register or load this tag?
+2025-06-21 21:07:16,938 - ERROR - Internal Server Error: /sesion/29/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'empty'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 110, in chat_sesion
+    return render(request, 'chatbot/sesion.html', {
+        'sesion': sesion,
+    ...<3 lines>...
+        'contexto_activo': contexto_activo,
+    })
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 567, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 45: 'empty', expected 'elif', 'else' or 'endif'. Did you forget to register or load this tag?
+2025-06-21 21:09:51,764 - INFO - Nombre de sesión 30 actualizado: dame el top 5 de honorarios
+2025-06-21 21:09:54,900 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 21:09:59,376 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 21:11:31,259 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 21:11:35,124 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 21:12:46,135 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py changed, reloading.
+2025-06-21 21:13:08,268 - INFO - Nombre de sesión 31 actualizado: dame el top 5 de honorarios
+2025-06-21 21:13:10,576 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-21 21:13:15,693 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-22 18:49:44,621 - WARNING - Not Found: /favicon.ico
+2025-06-22 18:50:23,098 - INFO - Nombre de sesión 32 actualizado: dame el top 5 honorarios
+2025-06-22 18:50:23,596 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2025-06-22 18:50:23,730 - ERROR - Internal Server Error: /sesion/32/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 66, in chat_sesion
+    sql_query = obtener_consulta_sql(pregunta, historial)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py", line 275, in obtener_consulta_sql
+    response = client.messages.create(
+        model="claude-3-5-haiku-latest",
+    ...<2 lines>...
+        messages=[{"role": "user", "content": system_prompt}] + historial
+    )
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_utils\_utils.py", line 275, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\resources\messages\messages.py", line 953, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/v1/messages",
+        ^^^^^^^^^^^^^^^
+    ...<23 lines>...
+        stream_cls=Stream[RawMessageStreamEvent],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1336, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1013, in request
+    return self._request(
+           ~~~~~~~~~~~~~^
+        cast_to=cast_to,
+        ^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        retries_taken=retries_taken,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1117, in _request
+    raise self._make_status_error_from_response(err.response) from None
+anthropic.AuthenticationError: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}}
+2025-06-22 19:05:41,035 - INFO - Nombre de sesión 33 actualizado: dame el top 5 de honorarios
+2025-06-22 19:05:41,412 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 401 Unauthorized"
+2025-06-22 19:05:41,442 - ERROR - Internal Server Error: /sesion/33/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 66, in chat_sesion
+    sql_query = obtener_consulta_sql(pregunta, historial)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py", line 275, in obtener_consulta_sql
+    response = client.messages.create(
+        model="claude-3-5-haiku-latest",
+    ...<2 lines>...
+        messages=[{"role": "user", "content": system_prompt}] + historial
+    )
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_utils\_utils.py", line 275, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\resources\messages\messages.py", line 953, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/v1/messages",
+        ^^^^^^^^^^^^^^^
+    ...<23 lines>...
+        stream_cls=Stream[RawMessageStreamEvent],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1336, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1013, in request
+    return self._request(
+           ~~~~~~~~~~~~~^
+        cast_to=cast_to,
+        ^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        retries_taken=retries_taken,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\anthropic\_base_client.py", line 1117, in _request
+    raise self._make_status_error_from_response(err.response) from None
+anthropic.AuthenticationError: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}}
+2025-06-22 19:06:48,041 - INFO - Nombre de sesión 34 actualizado: dame el top 5 de honorarios
+2025-06-22 19:06:51,328 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-22 19:06:56,396 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-22 19:19:23,451 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py changed, reloading.
+2025-06-22 19:22:19,921 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py changed, reloading.
+2025-06-22 19:22:29,013 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py changed, reloading.
+2025-06-22 19:22:41,468 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py changed, reloading.
+2025-06-22 19:24:01,907 - INFO - Nombre de sesión 35 actualizado: dame el top 5 de honorarios del mes de mayo
+2025-06-22 19:24:04,232 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-22 19:24:07,989 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-22 19:30:17,080 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py changed, reloading.
+2025-06-22 19:30:28,297 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py changed, reloading.
+2025-06-22 19:32:18,926 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py changed, reloading.
+2025-06-22 19:32:33,987 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py changed, reloading.
+2025-06-22 19:32:38,975 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py changed, reloading.
+2025-06-22 19:32:47,729 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py changed, reloading.
+2025-06-22 19:32:52,539 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py changed, reloading.
+2025-06-22 19:34:02,421 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py changed, reloading.
+2025-06-22 19:34:15,678 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py changed, reloading.
+2025-06-22 19:34:20,812 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py changed, reloading.
+2025-06-22 19:41:27,850 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-22 19:41:36,896 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-22 19:42:07,278 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-22 19:42:34,688 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-22 19:42:49,923 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-22 19:42:54,820 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-22 19:47:47,381 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-22 19:48:32,402 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-22 19:48:44,305 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-22 19:48:48,111 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-22 19:50:49,831 - INFO - Nombre de sesión 37 actualizado: dame el top 5 de honorarios de mayo
+2025-06-22 19:50:52,764 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-22 19:50:52,798 - ERROR - Internal Server Error: /sesion/37/
+Traceback (most recent call last):
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\fiae\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py", line 82, in chat_sesion
+    respuesta = generar_respuesta_final(pregunta, filas, historial)
+  File "C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py", line 300, in generar_respuesta_final
+    - Si hay varios datos personales o contratos, incluye un JSON al final así: {"id_contrato": [12, 15, 18]} o {"id_persona": [5, 7, 9]}.
+                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Invalid format specifier ' [12, 15, 18]' for object of type 'str'
+2025-06-22 19:51:26,241 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py changed, reloading.
+2025-06-22 19:51:33,286 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\bot.py changed, reloading.
+2025-06-22 19:51:57,366 - INFO - Nombre de sesión 38 actualizado: dame el top 5 de honorarios de mayo
+2025-06-22 19:51:59,613 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-22 19:52:03,801 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-22 19:52:17,310 - WARNING - Bad Request: /detalle_generico/id_personas/1/
+2025-06-22 19:52:22,220 - WARNING - Bad Request: /detalle_generico/id_personas/2/
+2025-06-22 19:52:23,551 - WARNING - Bad Request: /detalle_generico/id_personas/3/
+2025-06-22 19:52:24,828 - WARNING - Bad Request: /detalle_generico/id_personas/4/
+2025-06-22 19:52:26,087 - WARNING - Bad Request: /detalle_generico/id_personas/5/
+2025-06-22 19:52:43,243 - WARNING - Bad Request: /detalle_generico/id_personas/1/
+2025-06-22 19:52:55,431 - WARNING - Bad Request: /detalle_generico/id_personas/1/
+2025-06-22 19:53:01,476 - WARNING - Bad Request: /detalle_generico/id_personas/1/
+2025-06-22 19:53:13,052 - WARNING - Bad Request: /detalle_generico/id_personas/1/
+2025-06-22 19:53:20,401 - WARNING - Bad Request: /detalle_generico/id_personas/1/
+2025-06-22 19:53:23,731 - WARNING - Bad Request: /detalle_generico/id_personas/1/
+2025-06-22 19:54:14,327 - WARNING - Bad Request: /detalle_generico/id_personas/1/
+2025-06-22 19:54:33,402 - WARNING - Bad Request: /detalle_generico/id_personas/2/
+2025-06-22 19:59:34,840 - WARNING - Bad Request: /detalle_generico/id_personas/1/
+2025-06-22 20:08:09,501 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-22 20:08:13,620 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-22 20:09:33,301 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-23 01:07:47,758 - WARNING - Not Found: /favicon.ico
+2025-06-23 01:08:08,634 - INFO - Nombre de sesión 39 actualizado: dame el top 5 de honorarios de mayo
+2025-06-23 01:08:11,060 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-23 01:08:15,327 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-23 02:01:08,913 - INFO - Nombre de sesión 40 actualizado: dame el top 5 de honorarios de mayo
+2025-06-23 02:01:11,197 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-23 02:01:15,302 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-23 02:08:43,952 - INFO - Nombre de sesión 41 actualizado: dame el top 5 de honorarios de mayo
+2025-06-23 02:08:46,878 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-23 02:08:51,414 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-23 02:12:58,813 - INFO - Nombre de sesión 42 actualizado: dame el top 5 honorarios de marzo
+2025-06-23 02:13:01,204 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-23 02:13:06,567 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"

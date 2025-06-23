@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h4>❌ Términos excluidos</h4>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label>Agregar nuevo término:</label>
+      <input type="text" name="nuevo_termino" class="form-control" placeholder="Ej: política">
+    </div>
+    <button type="submit" class="btn btn-success mb-3">Agregar</button>
+
+    {% if terminos %}
+      <h5 class="mt-4">Términos actuales:</h5>
+      {% for t in terminos %}
+        <div class="form-check">
+          <input type="checkbox" name="eliminar" value="{{ t.palabra }}" class="form-check-input" id="term-{{ forloop.counter }}">
+          <label class="form-check-label" for="term-{{ forloop.counter }}">{{ t.palabra }}</label>
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-danger mt-3">Eliminar seleccionados</button>
+    {% else %}
+      <p class="text-muted">No tienes términos excluidos.</p>
+    {% endif %}
+  </form>
+</div>
+{% endblock %}

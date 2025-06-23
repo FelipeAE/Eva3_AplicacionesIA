@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h3>⚙️ Administración de Contextos de Prompt</h3>
+
+  <form method="post" class="mb-4">
+    {% csrf_token %}
+    <h5>➕ Crear nuevo contexto</h5>
+    <input type="text" name="nombre" class="form-control mb-2" placeholder="Nombre del contexto">
+    <textarea name="prompt_sistema" class="form-control mb-2" rows="5" placeholder="Texto del prompt..."></textarea>
+    <button type="submit" name="crear" class="btn btn-success">Crear</button>
+  </form>
+
+  {% if contextos %}
+    <h5>📋 Contextos existentes</h5>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Activo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in contextos %}
+          <tr>
+            <td>{{ c.nombre }}</td>
+            <td>{% if c.activo %}✅{% else %}—{% endif %}</td>
+            <td>
+              <form method="post" style="display:inline;">
+                {% csrf_token %}
+                <button name="activar" value="{{ c.id }}" class="btn btn-sm btn-primary">Activar</button>
+              </form>
+              <form method="post" style="display:inline;">
+                {% csrf_token %}
+                <button name="eliminar" value="{{ c.id }}" class="btn btn-sm btn-danger">Eliminar</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="text-muted">No hay contextos definidos.</p>
+  {% endif %}
+</div>
+{% endblock %}

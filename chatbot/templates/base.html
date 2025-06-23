@@ -10,16 +10,111 @@
   {% if user.is_authenticated %}
     <nav class="navbar navbar-dark bg-dark text-white p-2">
       <div class="container-fluid">
-        <span class="navbar-brand">Bienvenido, {{ user.username }}</span>
+        <a href="{% url 'chat_home' %}" class="navbar-brand text-white text-decoration-none">
+          Bienvenido, {{ user.username }}
+        </a>
+        {% if user.is_staff %}
+          <a href="{% url 'gestionar_contextos' %}" class="btn btn-outline-light btn-sm">🧠 Contextos</a>
+          
+        
+        <div class="d-flex align-items-center gap-2">
+          <a href="{% url 'excluir_terminos' %}" class="btn btn-outline-light btn-sm">⚙️ Términos excluidos</a>
+          {% endif %}
+
+
         <form action="{% url 'logout' %}" method="post" style="display:inline;">
             {% csrf_token %}
             <button type="submit" class="btn btn-outline-light btn-sm">Cerrar sesión</button>
         </form>
+        </div>
 
       </div>
     </nav>
   {% endif %}
 
   {% block content %}{% endblock %}
+<!-- Modal de detalles -->
+<div class="modal fade" id="modalDetalle" tabindex="-1" aria-labelledby="modalDetalleLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalDetalleLabel">Detalles relacionados</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body" id="contenido-modal">
+        <!-- Aquí se inyecta contenido desde JS -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const textarea = document.getElementById('input-pregunta');
+  const form = document.getElementById('form-pregunta');
+  const loader = document.getElementById('loader');
+  const btnEnviar = document.getElementById('btn-enviar');
+
+  textarea.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      form.submit();
+    }
+  });
+
+  form.addEventListener('submit', function() {
+    loader.style.display = 'block';
+    btnEnviar.disabled = true;
+  });
+
+  function verDetalles(id) {
+    fetch(`/detalle/${id}/`)
+      .then(resp => resp.json())
+      .then(data => {
+        let html = `
+          <p><strong>Nombre:</strong> ${data.persona}</p>
+          <p><strong>Función:</strong> ${data.funcion} (${data.calificacion})</p>
+          <p><strong>Mes/Año:</strong> ${data.mes} ${data.anho}</p>
+          <p><strong>Región:</strong> ${data.region}</p>
+          <p><strong>Honorario:</strong> $${data.honorario_total_bruto.toLocaleString()}</p>
+          <p><strong>Tipo de pago:</strong> ${data.tipo_pago}</p>
+          <p><strong>Viáticos:</strong> ${data.viaticos}</p>
+          <p><strong>Observaciones:</strong> ${data.observaciones}</p>
+          <p><strong>Enlace funciones:</strong> ${data.enlace_funciones}</p>
+        `;
+        document.getElementById("contenido-modal").innerHTML = html;
+        let modal = new bootstrap.Modal(document.getElementById("modalDetalle"));
+        modal.show();
+      });
+  }
+
+  function verDetallesGenericos() {
+    const contenido = `
+      <p>🔍 Esta es una vista genérica de detalles.</p>
+      <p>Puedes usar esto para mostrar más información relacionada con la última respuesta del bot.</p>
+      <p>Ejemplo: detalles de honorarios, contratos, personas, etc.</p>
+    `;
+    document.getElementById("contenido-modal").innerHTML = contenido;
+    let modal = new bootstrap.Modal(document.getElementById("modalDetalle"));
+    modal.show();
+  }
+
+  function verDetallesContexto(tipo, id) {
+    fetch(`/detalle_generico/${tipo}/${id}/`)
+      .then(resp => resp.json())
+      .then(data => {
+        let html = "<ul class='list-group'>";
+        for (let k in data) {
+          html += `<li class='list-group-item'><strong>${k.replaceAll('_', ' ')}:</strong> ${data[k]}</li>`;
+        }
+        html += "</ul>";
+        document.getElementById("contenido-modal").innerHTML = html;
+        new bootstrap.Modal(document.getElementById("modalDetalle")).show();
+      });
+  }
+</script>
+  
 </body>
 </html>
