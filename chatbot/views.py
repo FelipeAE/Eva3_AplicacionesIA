@@ -114,7 +114,8 @@ def chat_sesion(request, id):
             
             # NUEVO: Guardar datos fuente separados
             if filas:
-                DatosFuenteMensaje.objects.create(mensaje=mensaje, datos=filas)
+                json_valido = json.dumps(filas)
+                DatosFuenteMensaje.objects.create(mensaje=mensaje, datos=json_valido)
             
             if ids_extra:
                 request.session['detalles'] = ids_extra
@@ -126,6 +127,13 @@ def chat_sesion(request, id):
     contexto_activo = ContextoPrompt.objects.filter(activo=True).first()
     
     datos_fuente = request.session.pop('datos_fuente', None)
+    
+    for msg in mensajes:
+        if msg.tipo_emisor == "ia":
+            try:
+                msg.datos_fuente = msg.datos_fuente #fuerza el acceso
+            except DatosFuenteMensaje.DoesNotExist:
+                msg.datos_fuente = None
 
     return render(request, 'chatbot/sesion.html', {
         'sesion': sesion,

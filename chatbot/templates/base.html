@@ -140,13 +140,17 @@
   new bootstrap.Modal(document.getElementById("modalDetalle")).show();
 }
 
-function mostrarDatosFuenteDesde(btn) {
-  try {
-    console.log("Contenido crudo:", btn.dataset.datos);
-    const datos = JSON.parse(btn.dataset.datos);
+function mostrarDatosFuenteDesdeId(msgId) {
+  const jsonElement = document.getElementById(`datos-fuente-${msgId}`);
+  if (!jsonElement) {
+    alert("No se encontraron los datos fuente.");
+    return;
+  }
 
+  try {
+    const datos = JSON.parse(jsonElement.textContent);
     if (!Array.isArray(datos) || datos.length === 0) {
-      alert("No hay datos fuente disponibles.");
+      alert("No hay datos disponibles.");
       return;
     }
 
@@ -157,21 +161,18 @@ function mostrarDatosFuenteDesde(btn) {
 
     datos.forEach(fila => {
       html += "<tr>";
-      columnas.forEach(col => {
-        html += `<td>${fila[col]}</td>`;
-      });
+      columnas.forEach(col => html += `<td>${fila[col]}</td>`);
       html += "</tr>";
     });
 
     html += "</tbody></table></div>";
     document.getElementById("contenido-modal").innerHTML = html;
     new bootstrap.Modal(document.getElementById("modalDetalle")).show();
-  } catch (err) {
-    console.error("Parse error:", err);
+  } catch (e) {
+    console.error("Error al parsear datos fuente:", e);
     alert("Error al cargar los datos fuente.");
   }
 }
-
 
 
 </script>

@@ -32,12 +32,24 @@
 
 
         {% if msg.tipo_emisor == "ia" and msg.datos_fuente %}
+        {% comment %} <pre style="background:#f8f9fa;padding:10px;border:1px solid #ccc;">
+          Datos fuente cargados para mensaje {{ msg.id_mensaje }}:
+          {{ msg.datos_fuente.datos|safe }}
+        </pre> {% endcomment %}
+
           <div class="mt-2">
-            <button class="btn btn-sm btn-outline-primary"
-                    onclick="mostrarDatosFuenteDesde(this)"
-                    data-datos='{{ msg.datos_fuente.datos|escapejs|safe }}'>
+            <button class="btn btn-sm btn-outline-primary" onclick="mostrarDatosFuenteDesdeId('{{ msg.id_mensaje }}')">
               📄 Ver datos fuente
             </button>
+
+            
+            <script type="application/json" id="datos-fuente-{{ msg.id_mensaje }}">
+              {{ msg.datos_fuente.datos|safe }}
+            </script>
+
+            
+
+
           </div>
         {% endif %}
 
@@ -45,11 +57,13 @@
 
 
 
-        {% if msg.tipo_emisor == "ia" %}
+
+
+        {% comment %} {% if msg.tipo_emisor == "ia" %}
         <div class="mt-2">
           <button class="btn btn-sm btn-outline-info" onclick="verDetallesGenericos()">📄 Ver detalles</button>
         </div>
-        {% endif %}
+        {% endif %} {% endcomment %}
       </div>
     {% empty %}
       <p>No hay mensajes en esta sesión.</p>
