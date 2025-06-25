@@ -99,3 +99,8 @@ class ContextoPrompt(models.Model):
     def __str__(self):
         return self.nombre
 
+class DatosFuenteMensaje(models.Model):
+    mensaje = models.OneToOneField("MensajeChat", on_delete=models.CASCADE, related_name="datos_fuente")
+    datos = models.JSONField()
+
+

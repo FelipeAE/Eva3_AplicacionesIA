@@ -30,15 +30,19 @@
         <div class="border p-2 rounded">{{ msg.contenido|linebreaks }}</div>
         <small class="text-muted">{{ msg.fecha|date:"Y-m-d H:i" }}</small>
 
-        {% if msg.tipo_emisor == "ia" and request.session.id_contrato %}
-        <button class="btn btn-sm btn-outline-info mt-2" onclick="verDetalles({{ request.session.id_contrato }})">🔍 Ver detalles Contrato</button>
+
+        {% if msg.tipo_emisor == "ia" and msg.datos_fuente %}
+          <div class="mt-2">
+            <button class="btn btn-sm btn-outline-primary"
+                    onclick="mostrarDatosFuenteDesde(this)"
+                    data-datos='{{ msg.datos_fuente.datos|escapejs|safe }}'>
+              📄 Ver datos fuente
+            </button>
+          </div>
         {% endif %}
 
-        {% if msg.tipo_emisor == "ia" and msg.metadata %}
-          {% for id in msg.metadata.ids %}
-            <button class="btn btn-sm btn-outline-info mt-2" onclick="verDetallesContexto('{{ tipo }}', {{ valor }})">🔍 Ver detalle {{ tipo|cut:"id_" }} #{{ valor }}</button>
-          {% endfor %}
-        {% endif %}
+
+
 
 
         {% if msg.tipo_emisor == "ia" %}
@@ -66,6 +70,33 @@
   <div class="alert alert-info mt-4">
     📖 Esta sesión está finalizada. No puedes agregar más mensajes.
   </div>
+{% endif %}
+
+{% if datos_fuente %}
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const datos = {{ datos_fuente|safe }};
+    if (!Array.isArray(datos) || datos.length === 0) return;
+
+    let html = "<div class='table-responsive'><table class='table table-bordered table-sm'><thead><tr>";
+    const columnas = Object.keys(datos[0]);
+    columnas.forEach(col => html += `<th>${col}</th>`);
+    html += "</tr></thead><tbody>";
+
+    datos.forEach(fila => {
+      html += "<tr>";
+      columnas.forEach(col => html += `<td>${fila[col]}</td>`);
+      html += "</tr>";
+    });
+
+    html += "</tbody></table></div>";
+    document.getElementById("contenido-modal").innerHTML = html;
+    let modal = new bootstrap.Modal(document.getElementById("modalDetalle"));
+    modal.show();
+  });
+
+  
+</script>
 {% endif %}
 
 </div>

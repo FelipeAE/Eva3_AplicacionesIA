@@ -1014,3 +1014,72 @@ ValueError: Invalid format specifier ' [12, 15, 18]' for object of type 'str'
 2025-06-23 02:12:58,813 - INFO - Nombre de sesión 42 actualizado: dame el top 5 honorarios de marzo
 2025-06-23 02:13:01,204 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
 2025-06-23 02:13:06,567 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 21:48:12,884 - INFO - Nombre de sesión 43 actualizado: dame el top 5 de honorarios de marzo
+2025-06-24 21:48:15,948 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 21:48:20,077 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 21:49:55,676 - WARNING - Not Found: /detalle_generico//undefined/
+2025-06-24 21:49:56,668 - WARNING - Not Found: /detalle_generico//undefined/
+2025-06-24 21:49:56,978 - WARNING - Not Found: /detalle_generico//undefined/
+2025-06-24 21:49:57,310 - WARNING - Not Found: /detalle_generico//undefined/
+2025-06-24 21:49:57,619 - WARNING - Not Found: /detalle_generico//undefined/
+2025-06-24 21:49:58,181 - WARNING - Not Found: /detalle_generico//undefined/
+2025-06-24 21:54:13,148 - INFO - Nombre de sesión 44 actualizado: dame el top 5 de honorarios de marzo
+2025-06-24 21:54:16,582 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 21:54:20,179 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 21:56:51,574 - INFO - Nombre de sesión 45 actualizado: dame el top 5 de honorarios de marzo
+2025-06-24 21:56:54,816 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 21:56:58,814 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 21:57:28,648 - INFO - Nombre de sesión 46 actualizado: dame el top 5 de honorarios
+2025-06-24 21:57:31,226 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 21:57:36,666 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 21:59:38,785 - INFO - Nombre de sesión 47 actualizado: dame el top 5 de honorarios de marzo
+2025-06-24 21:59:41,152 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 21:59:44,721 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 22:06:46,387 - INFO - Nombre de sesión 48 actualizado: dame el top 5 de honorarios de marzo
+2025-06-24 22:06:48,790 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 22:06:52,266 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 22:09:54,255 - INFO - Nombre de sesión 49 actualizado: dame el top 5 de honorarios de marzo
+2025-06-24 22:09:57,302 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 22:10:01,248 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 22:13:40,267 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:13:46,019 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:13:51,190 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:13:57,666 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:14:05,408 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:14:11,255 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:14:17,901 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:14:21,699 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:14:37,083 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:14:41,232 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:14:51,039 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:14:54,948 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:15:39,667 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:18:10,551 - INFO - Nombre de sesión 50 actualizado: dame el top 5 de honorarios de marzo
+2025-06-24 22:18:14,048 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 22:18:18,289 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 22:18:52,926 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:19:38,280 - INFO - Nombre de sesión 51 actualizado: dame el top 5 de honorarios de marzo
+2025-06-24 22:19:40,897 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 22:19:45,140 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 22:20:29,164 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:20:55,435 - INFO - Nombre de sesión 52 actualizado: dame el top 5 de honorarios de marzo
+2025-06-24 22:20:58,339 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 22:21:02,555 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 22:23:14,959 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:24:33,365 - INFO - Nombre de sesión 53 actualizado: dame el top 5 de honorarios de marzo
+2025-06-24 22:24:36,517 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 22:24:39,983 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 22:32:29,959 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\models.py changed, reloading.
+2025-06-24 22:33:18,829 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:33:45,652 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:33:59,774 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:37:25,001 - INFO - Nombre de sesión 54 actualizado: dame el top 5 de honorarios de marzo
+2025-06-24 22:37:27,904 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 22:37:32,052 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-06-24 22:44:09,851 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\admin.py changed, reloading.
+2025-06-24 22:44:13,883 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\admin.py changed, reloading.
+2025-06-24 22:44:20,787 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\admin.py changed, reloading.
+2025-06-24 22:44:25,890 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\admin.py changed, reloading.
+2025-06-24 22:46:16,161 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:46:20,629 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.
+2025-06-24 22:46:27,107 - INFO - C:\Users\fiae\Desktop\Python\aplicaciones_ia\Eva3_AplicacionesIA\chatbot\views.py changed, reloading.

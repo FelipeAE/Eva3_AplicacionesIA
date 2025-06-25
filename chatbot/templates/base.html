@@ -65,9 +65,10 @@
   });
 
   form.addEventListener('submit', function() {
-    loader.style.display = 'block';
-    btnEnviar.disabled = true;
-  });
+  if (loader) loader.style.display = 'block';
+  if (btnEnviar) btnEnviar.disabled = true;
+});
+
 
   function verDetalles(id) {
     fetch(`/detalle/${id}/`)
@@ -114,6 +115,65 @@
         new bootstrap.Modal(document.getElementById("modalDetalle")).show();
       });
   }
+
+  function mostrarDatosFuente() {
+  const datos = window.__datosFuente;
+  if (!Array.isArray(datos) || datos.length === 0) {
+    alert("No hay datos fuente disponibles para esta respuesta.");
+    return;
+  }
+
+  let html = "<div class='table-responsive'><table class='table table-bordered table-sm'><thead><tr>";
+  const columnas = Object.keys(datos[0]);
+  columnas.forEach(col => html += `<th>${col}</th>`);
+  html += "</tr></thead><tbody>";
+
+  datos.forEach(fila => {
+    html += "<tr>";
+    columnas.forEach(col => html += `<td>${fila[col]}</td>`);
+    html += "</tr>";
+  });
+
+  html += "</tbody></table></div>";
+
+  document.getElementById("contenido-modal").innerHTML = html;
+  new bootstrap.Modal(document.getElementById("modalDetalle")).show();
+}
+
+function mostrarDatosFuenteDesde(btn) {
+  try {
+    console.log("Contenido crudo:", btn.dataset.datos);
+    const datos = JSON.parse(btn.dataset.datos);
+
+    if (!Array.isArray(datos) || datos.length === 0) {
+      alert("No hay datos fuente disponibles.");
+      return;
+    }
+
+    let html = "<div class='table-responsive'><table class='table table-bordered table-sm'><thead><tr>";
+    const columnas = Object.keys(datos[0]);
+    columnas.forEach(col => html += `<th>${col}</th>`);
+    html += "</tr></thead><tbody>";
+
+    datos.forEach(fila => {
+      html += "<tr>";
+      columnas.forEach(col => {
+        html += `<td>${fila[col]}</td>`;
+      });
+      html += "</tr>";
+    });
+
+    html += "</tbody></table></div>";
+    document.getElementById("contenido-modal").innerHTML = html;
+    new bootstrap.Modal(document.getElementById("modalDetalle")).show();
+  } catch (err) {
+    console.error("Parse error:", err);
+    alert("Error al cargar los datos fuente.");
+  }
+}
+
+
+
 </script>
   
 </body>

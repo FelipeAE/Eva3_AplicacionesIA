@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Persona, Funcion, TiempoContrato, Contrato
 from .models import SesionChat, MensajeChat, PreguntaBloqueada
-from .models import ContextoPrompt
+from .models import ContextoPrompt, DatosFuenteMensaje
 from django.contrib.admin.views.decorators import staff_member_required
 from django.utils import timezone
 from django.db.models import Count
@@ -102,19 +102,30 @@ def chat_sesion(request, id):
                 fecha=timezone.now()
             )
             
+            # Nueva parte: guardar datos fuente
+            metadata = {}
             if ids_relacionados:
-                mensaje.metadata = {
-                    "tipo": tipo_relacionado,
-                    "ids": ids_relacionados
-                }
+                metadata["tipo"] = tipo_relacionado
+                metadata["ids"] = ids_relacionados
+                
+            if metadata:
+                mensaje.metadata = metadata
                 mensaje.save()
+            
+            # NUEVO: Guardar datos fuente separados
+            if filas:
+                DatosFuenteMensaje.objects.create(mensaje=mensaje, datos=filas)
             
             if ids_extra:
                 request.session['detalles'] = ids_extra
+                
+            request.session['datos_fuente'] = filas
 
             return redirect('chat_sesion', id=id)
         
     contexto_activo = ContextoPrompt.objects.filter(activo=True).first()
+    
+    datos_fuente = request.session.pop('datos_fuente', None)
 
     return render(request, 'chatbot/sesion.html', {
         'sesion': sesion,
@@ -122,6 +133,7 @@ def chat_sesion(request, id):
         'bloqueadas': bloqueadas,
         'solo_lectura': solo_lectura,
         'contexto_activo': contexto_activo,
+        'datos_fuente': datos_fuente,
     })
 
 
