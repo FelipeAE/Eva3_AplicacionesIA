@@ -49,6 +49,7 @@ class Contrato(models.Model):
 
 class SesionChat(models.Model):
     id_sesion = models.AutoField(primary_key=True)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, db_column='usuario_id')  # Especificar columna
     fecha_inicio = models.DateTimeField()
     fecha_termino = models.DateTimeField(null=True, blank=True)
     estado = models.CharField(max_length=20)

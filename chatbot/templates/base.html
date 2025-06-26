@@ -17,9 +17,10 @@
           <a href="{% url 'gestionar_contextos' %}" class="btn btn-outline-light btn-sm">🧠 Contextos</a>
           
         
+        
+          {% endif %}
         <div class="d-flex align-items-center gap-2">
           <a href="{% url 'excluir_terminos' %}" class="btn btn-outline-light btn-sm">⚙️ Términos excluidos</a>
-          {% endif %}
 
 
         <form action="{% url 'logout' %}" method="post" style="display:inline;">

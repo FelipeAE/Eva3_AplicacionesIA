@@ -75,11 +75,18 @@ Relaciones:
 
 # ------------------- FUNCIONES DE BASE DE DATOS -------------------
 
-def crear_sesion():
+def crear_sesion(usuario_id=None):
     """Crea una nueva sesión y la almacena en la tabla sesion_chat."""
     conn = conectar_db()
     cur = conn.cursor()
-    cur.execute("INSERT INTO sesion_chat DEFAULT VALUES RETURNING id_sesion")
+    if usuario_id:
+        cur.execute(
+            "INSERT INTO sesion_chat (fecha_inicio, estado, nombre_sesion, usuario_id) VALUES (NOW(), 'activa', %s, %s) RETURNING id_sesion",
+            ["Sesión de terminal", usuario_id]
+        )
+    else:
+        # Para compatibilidad con versión anterior (sin usuario)
+        cur.execute("INSERT INTO sesion_chat (fecha_inicio, estado, nombre_sesion) VALUES (NOW(), 'activa', %s) RETURNING id_sesion", ["Sesión de terminal"])
     id_sesion = cur.fetchone()[0]
     conn.commit()
     cur.close()
@@ -242,14 +249,32 @@ def eliminar_sesion_si_valida(id_borrar):
 
 # ------------------- GENERACIÓN DE CONSULTA SQL (ANTHROPIC) -------------------
 
-def obtener_consulta_sql(pregunta, historial):
+def obtener_consulta_sql(pregunta, historial, terminos_excluidos=None):
     contexto = ContextoPrompt.objects.filter(activo=True).first()
     prompt_base = contexto.prompt_sistema if contexto else "Eres un asistente experto en análisis de datos para RRHH universitarios. Responde preguntas basadas en las siguientes tablas relacionales:\n" + ESTRUCTURA_TABLA
     """
     Utiliza Anthropic (Claude) para generar la consulta SQL en base a la pregunta del usuario
     y el historial de mensajes de la sesión.
     """
-    system_prompt = f"""{prompt_base} 
+    
+    # Agregar información sobre términos excluidos si existen
+    exclusiones_info = ""
+    if terminos_excluidos:
+        exclusiones_info = f"""
+
+IMPORTANTE - TÉRMINOS EXCLUIDOS: El usuario ha configurado los siguientes términos para EXCLUIR completamente de los resultados: {', '.join(terminos_excluidos)}.
+
+Debes agregar condiciones WHERE para filtrar estos términos en TODAS las columnas relevantes:
+- Si un término coincide con un mes (enero, febrero, marzo, etc.), agrega: AND LOWER(tiempo_contrato.mes) NOT LIKE '%término%'
+- Si un término coincide con una región, agrega: AND LOWER(tiempo_contrato.region) NOT LIKE '%término%'  
+- Si un término coincide con un nombre/apellido, agrega: AND LOWER(persona.nombre_completo) NOT LIKE '%término%'
+- Si un término coincide con una función, agrega: AND LOWER(funcion.descripcion_funcion) NOT LIKE '%término%'
+- Si un término coincide con una calificación, agrega: AND LOWER(funcion.calificacion_profesional) NOT LIKE '%término%'
+
+Ejemplo: Si 'marzo' está excluido, la consulta debe incluir: AND LOWER(tiempo_contrato.mes) NOT LIKE '%marzo%'
+Los filtros de exclusión son OBLIGATORIOS y deben aplicarse siempre que haya términos excluidos."""
+    
+    system_prompt = f"""{prompt_base}{exclusiones_info}
 
 Y la siguiente consulta en lenguaje natural:
 \"{pregunta}\"
@@ -267,6 +292,7 @@ Genera una consulta SQL para el motor PostgreSQL que responda la pregunta del us
 10. Usa alias de tabla cuando sea necesario para mantener claridad.
 11. Si el usuario pregunta por “los anteriores” o “las personas anteriores”, asume que se refiere al resultado más reciente de la conversación, y genera una consulta coherente filtrando por los mismos nombres si es posible.
 12. Si no puedes generar una consulta válida o la pregunta no se relaciona con el contexto de los datos, responde amablemente que no puedes responder a esa consulta.
+13. OBLIGATORIO: Si hay términos excluidos configurados (mostrados arriba), debes aplicar TODOS los filtros de exclusión correspondientes usando condiciones WHERE con NOT LIKE.
 
 
 Tu respuesta debe ser solo la consulta SQL, sin explicaciones adicionales.

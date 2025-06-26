@@ -12,15 +12,18 @@ from django.http import JsonResponse
 import re
 import json
 from django.forms.models import model_to_dict
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.contrib import messages
 
 @login_required
 def chat_home(request):
-    sesiones = SesionChat.objects.all().order_by('-fecha_inicio')[:10]
+    sesiones = SesionChat.objects.filter(usuario=request.user).order_by('-fecha_inicio')[:10]
     return render(request, 'chatbot/home.html', {'sesiones': sesiones})
 
 @login_required
 def chat_sesion(request, id):
-    sesion = get_object_or_404(SesionChat, id_sesion=id)
+    sesion = get_object_or_404(SesionChat, id_sesion=id, usuario=request.user)
     solo_lectura = sesion.estado == 'finalizada'
     mensajes = MensajeChat.objects.filter(sesion=sesion).order_by('fecha')
     bloqueadas = PreguntaBloqueada.objects.filter(sesion=sesion).exists()
@@ -28,13 +31,6 @@ def chat_sesion(request, id):
     if request.method == "POST" and not solo_lectura:
         pregunta = request.POST.get("pregunta", "").strip()
         if pregunta:
-            # 🔁 Mover aquí la validación de términos excluidos
-            from .models import TerminoExcluido
-            excluidos = TerminoExcluido.objects.filter(usuario=request.user).values_list("palabra", flat=True)
-            if any(e.lower() in pregunta.lower() for e in excluidos):
-                advertencia = "⚠️ Esta pregunta contiene términos que decidiste excluir de las búsquedas."
-                guardar_mensaje(sesion.id_sesion, "ia", advertencia)
-                return redirect('chat_sesion', id=id)
             # Guardar mensaje del usuario
             guardar_mensaje(sesion.id_sesion, "usuario", pregunta)
             
@@ -57,14 +53,18 @@ def chat_sesion(request, id):
                 )
                 return redirect('chat_sesion', id=id)
 
+            # Obtener términos excluidos del usuario
+            from .models import TerminoExcluido
+            terminos_excluidos = list(TerminoExcluido.objects.filter(usuario=request.user).values_list("palabra", flat=True))
+
             # Obtener historial
             historial = [
                 {"role": "user" if m.tipo_emisor == "usuario" else "assistant", "content": m.contenido}
                 for m in mensajes
             ]
 
-            # Generar SQL y respuesta
-            sql_query = obtener_consulta_sql(pregunta, historial)
+            # Generar SQL y respuesta (pasando términos excluidos)
+            sql_query = obtener_consulta_sql(pregunta, historial, terminos_excluidos)
 
             if not sql_query.lower().startswith("select"):
                 MensajeChat.objects.create(
@@ -146,33 +146,38 @@ def chat_sesion(request, id):
 
 
 @login_required
+@login_required
 def nueva_sesion(request):
     from django.db import connection
     with connection.cursor() as cur:
         cur.execute(
-            "INSERT INTO sesion_chat (fecha_inicio, estado, nombre_sesion) VALUES (NOW(), 'activa', %s) RETURNING id_sesion",
-            ["Sesión nueva"]
+            "INSERT INTO sesion_chat (fecha_inicio, estado, nombre_sesion, usuario_id) VALUES (NOW(), 'activa', %s, %s) RETURNING id_sesion",
+            ["Sesión nueva", request.user.id]
         )
         id_sesion = cur.fetchone()[0]
     return redirect('chat_sesion', id=id_sesion)
 
 
 @login_required
+@login_required
 def borrar_sesion(request, id):
+    # Verificar que la sesión pertenece al usuario
+    sesion = get_object_or_404(SesionChat, id_sesion=id, usuario=request.user)
+    
     if PreguntaBloqueada.objects.filter(sesion_id=id).exists():
         return render(request, 'chatbot/no_borrar.html')
     MensajeChat.objects.filter(sesion_id=id).delete()
-    SesionChat.objects.filter(id_sesion=id).delete()
+    SesionChat.objects.filter(id_sesion=id, usuario=request.user).delete()
     return redirect('chat_home')
 
 @login_required
 def finalizar_sesion(request, id):
-    sesion = get_object_or_404(SesionChat, id_sesion=id)
+    sesion = get_object_or_404(SesionChat, id_sesion=id, usuario=request.user)
     if sesion.estado != 'finalizada':
         with connection.cursor() as cur:
             cur.execute(
-                "UPDATE sesion_chat SET estado = 'finalizada', fecha_termino = NOW() WHERE id_sesion = %s",
-                [id]
+                "UPDATE sesion_chat SET estado = 'finalizada', fecha_termino = NOW() WHERE id_sesion = %s AND usuario_id = %s",
+                [id, request.user.id]
             )
     return redirect('chat_sesion', id=id)
 
@@ -254,6 +259,19 @@ def detalle_generico(request, tipo, id):
         data["tiempo"] = f"{obj.tiempo.mes} {obj.tiempo.anho}"
 
     return JsonResponse(data)
+
+def registro(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f"Usuario {username} creado exitosamente.")
+            login(request, user)  # Login automático después del registro
+            return redirect('chat_home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/registro.html', {'form': form})
 
 
 

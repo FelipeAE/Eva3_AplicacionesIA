@@ -11,4 +11,5 @@ urlpatterns = [
     path('contextos/', views.gestionar_contextos, name='gestionar_contextos'),
     path('detalle/<int:id>/', views.detalle_contrato, name='detalle_contrato'),
     path('detalle_generico/<str:tipo>/<int:id>/', views.detalle_generico, name='detalle_generico'),
+    path('registro/', views.registro, name='registro'),
 ]
