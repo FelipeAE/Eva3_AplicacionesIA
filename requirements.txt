@@ -1,0 +1,26 @@
+# Framework web
+Django>=4.2.0,<5.0.0
+
+# Base de datos PostgreSQL
+psycopg2-binary>=2.9.0
+
+# Cliente de Anthropic Claude AI
+anthropic>=0.25.0
+
+# Variables de entorno
+python-dotenv>=1.0.0
+
+# Logging y utilidades
+logging>=0.4.9.6
+
+# Desarrollo y testing (opcional)
+django-debug-toolbar>=4.0.0
+pytest>=7.0.0
+pytest-django>=4.5.0
+
+# Producción (opcional)
+gunicorn>=20.1.0
+whitenoise>=6.4.0
+
+# Seguridad
+django-cors-headers>=4.0.0

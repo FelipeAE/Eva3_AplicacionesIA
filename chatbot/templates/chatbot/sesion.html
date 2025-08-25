@@ -72,8 +72,24 @@
     <div class="mb-3">
       <textarea name="pregunta" id="input-pregunta" class="form-control" rows="3" placeholder="Escribe tu pregunta..."></textarea>
     </div>
-    <button type="submit" id="btn-enviar" class="btn btn-primary">Enviar</button>
+    <button type="submit" id="btn-enviar" class="btn btn-primary">
+      <span id="btn-text">Enviar</span>
+      <span id="btn-loading" class="d-none">
+        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+        Procesando...
+      </span>
+    </button>
   </form>
+  
+  <!-- Indicador de respuesta del bot -->
+  <div id="typing-indicator" class="d-none mt-3 p-3 border rounded bg-light">
+    <div class="d-flex align-items-center">
+      <div class="spinner-border spinner-border-sm me-2" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <span class="text-muted">El asistente está escribiendo<span id="dots"></span></span>
+    </div>
+  </div>
   
 {% else %}
   <div class="alert alert-info mt-4">
@@ -107,6 +123,72 @@
   
 </script>
 {% endif %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('form-pregunta');
+    const btnEnviar = document.getElementById('btn-enviar');
+    const btnText = document.getElementById('btn-text');
+    const btnLoading = document.getElementById('btn-loading');
+    const typingIndicator = document.getElementById('typing-indicator');
+    const dotsElement = document.getElementById('dots');
+    const inputPregunta = document.getElementById('input-pregunta');
+    
+    let dotsInterval;
+    
+    function animateDots() {
+        let dots = '';
+        let count = 0;
+        dotsInterval = setInterval(() => {
+            count = (count + 1) % 4;
+            dots = '.'.repeat(count);
+            if (dotsElement) dotsElement.textContent = dots;
+        }, 500);
+    }
+    
+    function showLoadingState() {
+        // Cambiar botón
+        btnText.classList.add('d-none');
+        btnLoading.classList.remove('d-none');
+        btnEnviar.disabled = true;
+        
+        // Mostrar indicador de escritura
+        typingIndicator.classList.remove('d-none');
+        animateDots();
+        
+        // Deshabilitar textarea
+        inputPregunta.disabled = true;
+    }
+    
+    function hideLoadingState() {
+        // Restaurar botón
+        btnText.classList.remove('d-none');
+        btnLoading.classList.add('d-none');
+        btnEnviar.disabled = false;
+        
+        // Ocultar indicador
+        typingIndicator.classList.add('d-none');
+        if (dotsInterval) clearInterval(dotsInterval);
+        
+        // Habilitar textarea
+        inputPregunta.disabled = false;
+    }
+    
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const pregunta = inputPregunta.value.trim();
+            if (!pregunta) {
+                e.preventDefault();
+                alert('Por favor escribe una pregunta');
+                return;
+            }
+            
+            showLoadingState();
+            // El form se envía normalmente, la página se recarga con la respuesta
+        });
+    }
+});
+</script>
 
 </div>
 {% endblock %}

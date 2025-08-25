@@ -15,10 +15,8 @@
         </a>
         {% if user.is_staff %}
           <a href="{% url 'gestionar_contextos' %}" class="btn btn-outline-light btn-sm">🧠 Contextos</a>
-          
-        
-        
-          {% endif %}
+          <a href="{% url 'admin_panel' %}" class="btn btn-outline-warning btn-sm">⚙️ Panel Admin</a>
+        {% endif %}
         <div class="d-flex align-items-center gap-2">
           <a href="{% url 'excluir_terminos' %}" class="btn btn-outline-light btn-sm">⚙️ Términos excluidos</a>
 

@@ -1,0 +1,792 @@
+{% extends 'base.html' %}
+
+{% block title %}Panel de Administración - Chatbot IA{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="display-4 text-center mb-4">
+                <i class="fas fa-cogs text-primary"></i>
+                Panel de Administración
+            </h1>
+            <div class="alert alert-info text-center">
+                <i class="fas fa-info-circle"></i>
+                Vista de control y estadísticas del sistema de chatbot
+            </div>
+        </div>
+    </div>
+
+    <!-- Tarjetas de estadísticas -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="card text-white bg-primary h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title">{{ total_usuarios }}</h4>
+                            <p class="card-text">Usuarios Totales</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-users fa-2x"></i>
+                        </div>
+                    </div>
+                    <small class="text-light">{{ usuarios_activos }} activos</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card text-white bg-success h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title">{{ total_sesiones }}</h4>
+                            <p class="card-text">Sesiones Totales</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-comments fa-2x"></i>
+                        </div>
+                    </div>
+                    <small class="text-light">{{ sesiones_activas }} activas</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card text-white bg-info h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title">{{ total_mensajes }}</h4>
+                            <p class="card-text">Mensajes Totales</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-envelope fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card text-white bg-warning h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title">{{ preguntas_bloqueadas }}</h4>
+                            <p class="card-text">Preguntas Bloqueadas</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-ban fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel de acciones rápidas -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-tools"></i>
+                        Acciones Rápidas
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-2">
+                            <a href="{% url 'gestionar_contextos' %}" class="btn btn-outline-primary btn-block">
+                                <i class="fas fa-edit"></i>
+                                Gestionar Contextos
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <a href="/admin/" class="btn btn-outline-secondary btn-block">
+                                <i class="fas fa-database"></i>
+                                Django Admin
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <button class="btn btn-outline-info btn-block" onclick="location.reload()">
+                                <i class="fas fa-sync-alt"></i>
+                                Actualizar Datos
+                            </button>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <a href="{% url 'chat_home' %}" class="btn btn-outline-success btn-block">
+                                <i class="fas fa-home"></i>
+                                Volver al Chat
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Usuarios más activos -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-user-star"></i>
+                        Usuarios Más Activos
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if usuarios_activos_data %}
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Usuario</th>
+                                        <th>Sesiones</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for usuario in usuarios_activos_data %}
+                                    <tr>
+                                        <td>
+                                            <i class="fas fa-user text-muted"></i>
+                                            {{ usuario.username }}
+                                            {% if usuario.is_staff %}
+                                                <span class="badge badge-warning">Staff</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-primary">{{ usuario.num_sesiones }}</span>
+                                        </td>
+                                        <td>
+                                            {% if usuario.is_active %}
+                                                <span class="badge badge-success">Activo</span>
+                                            {% else %}
+                                                <span class="badge badge-secondary">Inactivo</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center text-muted">
+                            <i class="fas fa-users fa-3x mb-2"></i>
+                            <p>No hay datos de usuarios disponibles</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Sesiones recientes -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-clock"></i>
+                        Sesiones Recientes
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if sesiones_recientes %}
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Usuario</th>
+                                        <th>Sesión</th>
+                                        <th>Estado</th>
+                                        <th>Fecha</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for sesion in sesiones_recientes %}
+                                    <tr>
+                                        <td>
+                                            <i class="fas fa-user text-muted"></i>
+                                            {{ sesion.usuario.username|default:"Sin usuario" }}
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'chat_sesion' sesion.id_sesion %}" class="text-decoration-none">
+                                                {{ sesion.nombre_sesion|truncatechars:20 }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            {% if sesion.estado == 'activa' %}
+                                                <span class="badge badge-success">{{ sesion.estado|title }}</span>
+                                            {% else %}
+                                                <span class="badge badge-secondary">{{ sesion.estado|title }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <small class="text-muted">{{ sesion.fecha_inicio|date:"d/m H:i" }}</small>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center text-muted">
+                            <i class="fas fa-comments fa-3x mb-2"></i>
+                            <p>No hay sesiones recientes</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Preguntas bloqueadas -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Preguntas Bloqueadas Recientes
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if preguntas_bloqueadas_recientes %}
+                        {% for pregunta in preguntas_bloqueadas_recientes %}
+                        <div class="alert alert-warning alert-sm mb-2">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <strong>{{ pregunta.sesion.usuario.username|default:"Sin usuario" }}</strong>
+                                    <br>
+                                    <small class="text-muted">{{ pregunta.pregunta|truncatechars:60 }}</small>
+                                </div>
+                                <div class="text-right">
+                                    <small class="text-muted">{{ pregunta.fecha|date:"d/m H:i" }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center text-muted">
+                            <i class="fas fa-check-circle fa-3x mb-2"></i>
+                            <p>No hay preguntas bloqueadas recientes</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Términos más excluidos -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-filter"></i>
+                        Términos Más Excluidos
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if terminos_frecuentes %}
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Término</th>
+                                        <th>Frecuencia</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for termino in terminos_frecuentes %}
+                                    <tr>
+                                        <td>
+                                            <code>{{ termino.palabra }}</code>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-secondary">{{ termino.count }}</span>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center text-muted">
+                            <i class="fas fa-filter fa-3x mb-2"></i>
+                            <p>No hay términos excluidos registrados</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gestión de contextos -->
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-brain"></i>
+                        Contextos del Sistema
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if contextos %}
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Estado</th>
+                                        <th>Prompt del Sistema</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for contexto in contextos %}
+                                    <tr>
+                                        <td>
+                                            <strong>{{ contexto.nombre }}</strong>
+                                        </td>
+                                        <td>
+                                            {% if contexto.activo %}
+                                                <span class="badge badge-success">Activo</span>
+                                            {% else %}
+                                                <span class="badge badge-secondary">Inactivo</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <small class="text-muted">{{ contexto.prompt_sistema|truncatechars:100 }}</small>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'gestionar_contextos' %}" class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-edit"></i>
+                                                Gestionar
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center text-muted">
+                            <i class="fas fa-brain fa-3x mb-2"></i>
+                            <p>No hay contextos configurados</p>
+                            <a href="{% url 'gestionar_contextos' %}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i>
+                                Crear Primer Contexto
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Estilos adicionales para el panel */
+.card {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: none;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.alert-sm {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.table-responsive {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.badge {
+    font-size: 0.75em;
+}
+
+/* Estilo olímpico consistente */
+.bg-primary {
+    background: linear-gradient(135deg, #007bff, #0056b3) !important;
+}
+
+.bg-success {
+    background: linear-gradient(135deg, #28a745, #1e7e34) !important;
+}
+
+.bg-info {
+    background: linear-gradient(135deg, #17a2b8, #117a8b) !important;
+}
+
+.bg-warning {
+    background: linear-gradient(135deg, #ffc107, #e0a800) !important;
+}
+
+.bg-dark {
+    background: linear-gradient(135deg, #343a40, #23272b) !important;
+}
+
+.display-4 {
+    font-weight: 300;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+    .display-4 {
+        font-size: 2rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .btn-block {
+        margin-bottom: 0.5rem;
+    }
+    
+    /* API Testing Styles */
+    .api-section {
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .result-box {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        font-family: monospace;
+        white-space: pre-wrap;
+        max-height: 300px;
+        overflow-y: auto;
+        margin-top: 10px;
+    }
+    
+    .result-success {
+        border-color: #28a745;
+        background-color: #d4edda;
+    }
+    
+    .result-error {
+        border-color: #dc3545;
+        background-color: #f8d7da;
+    }
+}
+</style>
+
+<!-- API Testing Section -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-code"></i>
+                    API Testing Interface
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <strong>Info:</strong> Esta sección te permite probar las APIs REST del sistema desde el panel de administración.
+                </div>
+                
+                <!-- Authentication Status -->
+                <div class="api-section">
+                    <h6><i class="fas fa-shield-alt"></i> Estado de Autenticación</h6>
+                    <button onclick="checkAuth()" class="btn btn-primary btn-sm">Verificar Login</button>
+                    <div id="authStatus" class="result-box d-none"></div>
+                </div>
+
+                <!-- Sessions API Testing -->
+                <div class="api-section">
+                    <h6><i class="fas fa-comments"></i> Gestión de Sesiones</h6>
+                    <div class="btn-group" role="group">
+                        <button onclick="listSessions()" class="btn btn-outline-primary btn-sm">📂 Listar Sesiones</button>
+                        <button onclick="createSession()" class="btn btn-outline-success btn-sm">➕ Crear Sesión</button>
+                    </div>
+                    <div id="sessionsResult" class="result-box d-none"></div>
+                    
+                    <div class="mt-3">
+                        <h6>Ver Sesión Específica</h6>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <input type="number" id="sessionId" class="form-control form-control-sm" placeholder="ID de sesión" value="1">
+                            </div>
+                            <div class="col-md-6">
+                                <button onclick="getSession()" class="btn btn-outline-info btn-sm">Ver Detalles</button>
+                            </div>
+                        </div>
+                        <div id="sessionResult" class="result-box d-none"></div>
+                    </div>
+                </div>
+
+                <!-- Message Testing -->
+                <div class="api-section">
+                    <h6><i class="fas fa-paper-plane"></i> Envío de Mensajes</h6>
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            <input type="number" id="messageSessionId" class="form-control form-control-sm" placeholder="ID sesión" value="1">
+                        </div>
+                        <div class="col-md-7">
+                            <textarea id="messageContent" class="form-control form-control-sm" rows="2" placeholder="Mensaje...">Dame el top 5 de honorarios</textarea>
+                        </div>
+                        <div class="col-md-2">
+                            <button onclick="sendMessage()" class="btn btn-outline-success btn-sm">📤 Enviar</button>
+                        </div>
+                    </div>
+                    <div id="messageResult" class="result-box d-none"></div>
+                </div>
+
+                <!-- Admin APIs Testing -->
+                <div class="api-section">
+                    <h6><i class="fas fa-cog"></i> APIs de Administración</h6>
+                    <button onclick="listContexts()" class="btn btn-outline-warning btn-sm">📋 Listar Contextos</button>
+                    <div id="contextsResult" class="result-box d-none"></div>
+                    
+                    <div class="mt-3">
+                        <h6>Crear Contexto</h6>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <input type="text" id="contextName" class="form-control form-control-sm" placeholder="Nombre" value="Contexto API Test">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" id="contextPrompt" class="form-control form-control-sm" placeholder="Prompt del contexto" value="Responde de manera muy técnica">
+                            </div>
+                            <div class="col-md-2">
+                                <button onclick="createContext()" class="btn btn-outline-success btn-sm">Crear</button>
+                            </div>
+                        </div>
+                        <div id="createContextResult" class="result-box d-none"></div>
+                    </div>
+                </div>
+
+                <!-- Settings APIs -->
+                <div class="api-section">
+                    <h6><i class="fas fa-filter"></i> Términos Excluidos</h6>
+                    <button onclick="listExcludedTerms()" class="btn btn-outline-secondary btn-sm">📋 Ver Términos</button>
+                    <div id="termsResult" class="result-box d-none"></div>
+                    
+                    <div class="mt-3">
+                        <div class="form-row">
+                            <div class="col-md-8">
+                                <input type="text" id="newTerm" class="form-control form-control-sm" placeholder="Nuevo término a excluir" value="test_api">
+                            </div>
+                            <div class="col-md-4">
+                                <button onclick="addTerm()" class="btn btn-outline-success btn-sm">Agregar Término</button>
+                            </div>
+                        </div>
+                        <div id="addTermResult" class="result-box d-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Actualizar datos cada 5 minutos
+setTimeout(function() {
+    location.reload();
+}, 300000);
+
+// Tooltips para mejor UX
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+// ==================== API Testing Functions ====================
+
+// Función para obtener el token CSRF
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// Helper para hacer requests
+async function apiRequest(url, options = {}) {
+    const defaultOptions = {
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        credentials: 'same-origin'
+    };
+    
+    const response = await fetch(`/api/v1${url}`, {
+        ...defaultOptions,
+        ...options,
+        headers: { ...defaultOptions.headers, ...options.headers }
+    });
+    
+    const data = await response.json();
+    return { response, data };
+}
+
+function showResult(elementId, data, isError = false) {
+    const element = document.getElementById(elementId);
+    element.textContent = JSON.stringify(data, null, 2);
+    element.className = `result-box ${isError ? 'result-error' : 'result-success'}`;
+    element.classList.remove('d-none');
+}
+
+// API Test Functions
+async function checkAuth() {
+    try {
+        const { response, data } = await apiRequest('/sessions/');
+        if (response.ok) {
+            showResult('authStatus', { 
+                status: 'Autenticado ✅', 
+                user: '{{ user.username }}',
+                sessions_count: data.sessions?.length || 0 
+            });
+        } else {
+            showResult('authStatus', { status: 'Error de autenticación ❌', error: data }, true);
+        }
+    } catch (error) {
+        showResult('authStatus', { error: error.message }, true);
+    }
+}
+
+async function listSessions() {
+    try {
+        const { response, data } = await apiRequest('/sessions/');
+        showResult('sessionsResult', data, !response.ok);
+    } catch (error) {
+        showResult('sessionsResult', { error: error.message }, true);
+    }
+}
+
+async function createSession() {
+    try {
+        const { response, data } = await apiRequest('/sessions/create/', { method: 'POST' });
+        showResult('sessionsResult', data, !response.ok);
+        if (response.ok && data.session_id) {
+            document.getElementById('sessionId').value = data.session_id;
+            document.getElementById('messageSessionId').value = data.session_id;
+        }
+    } catch (error) {
+        showResult('sessionsResult', { error: error.message }, true);
+    }
+}
+
+async function getSession() {
+    const sessionId = document.getElementById('sessionId').value;
+    if (!sessionId) {
+        showResult('sessionResult', { error: 'Ingresa un ID de sesión' }, true);
+        return;
+    }
+    
+    try {
+        const { response, data } = await apiRequest(`/sessions/${sessionId}/`);
+        showResult('sessionResult', data, !response.ok);
+    } catch (error) {
+        showResult('sessionResult', { error: error.message }, true);
+    }
+}
+
+async function sendMessage() {
+    const sessionId = document.getElementById('messageSessionId').value;
+    const message = document.getElementById('messageContent').value;
+    
+    if (!sessionId || !message.trim()) {
+        showResult('messageResult', { error: 'Ingresa ID de sesión y mensaje' }, true);
+        return;
+    }
+    
+    try {
+        const { response, data } = await apiRequest(`/sessions/${sessionId}/message/`, {
+            method: 'POST',
+            body: JSON.stringify({ message: message.trim() })
+        });
+        showResult('messageResult', data, !response.ok);
+    } catch (error) {
+        showResult('messageResult', { error: error.message }, true);
+    }
+}
+
+async function listContexts() {
+    try {
+        const { response, data } = await apiRequest('/admin/contexts/');
+        showResult('contextsResult', data, !response.ok);
+    } catch (error) {
+        showResult('contextsResult', { error: error.message }, true);
+    }
+}
+
+async function createContext() {
+    const name = document.getElementById('contextName').value;
+    const prompt = document.getElementById('contextPrompt').value;
+    
+    if (!name.trim() || !prompt.trim()) {
+        showResult('createContextResult', { error: 'Ingresa nombre y prompt' }, true);
+        return;
+    }
+    
+    try {
+        const { response, data } = await apiRequest('/admin/contexts/create/', {
+            method: 'POST',
+            body: JSON.stringify({ name: name.trim(), prompt: prompt.trim() })
+        });
+        showResult('createContextResult', data, !response.ok);
+    } catch (error) {
+        showResult('createContextResult', { error: error.message }, true);
+    }
+}
+
+async function listExcludedTerms() {
+    try {
+        const { response, data } = await apiRequest('/settings/excluded-terms/');
+        showResult('termsResult', data, !response.ok);
+    } catch (error) {
+        showResult('termsResult', { error: error.message }, true);
+    }
+}
+
+async function addTerm() {
+    const term = document.getElementById('newTerm').value;
+    
+    if (!term.trim()) {
+        showResult('addTermResult', { error: 'Ingresa un término' }, true);
+        return;
+    }
+    
+    try {
+        const { response, data } = await apiRequest('/settings/excluded-terms/add/', {
+            method: 'POST',
+            body: JSON.stringify({ term: term.trim() })
+        });
+        showResult('addTermResult', data, !response.ok);
+    } catch (error) {
+        showResult('addTermResult', { error: error.message }, true);
+    }
+}
+
+// Auto-check auth on page load
+$(document).ready(function() {
+    // Auto-verify authentication when page loads
+    setTimeout(checkAuth, 500);
+});
+</script>
+{% endblock %}

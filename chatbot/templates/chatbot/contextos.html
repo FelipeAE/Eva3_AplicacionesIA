@@ -27,10 +27,17 @@
             <td>{{ c.nombre }}</td>
             <td>{% if c.activo %}✅{% else %}—{% endif %}</td>
             <td>
-              <form method="post" style="display:inline;">
-                {% csrf_token %}
-                <button name="activar" value="{{ c.id }}" class="btn btn-sm btn-primary">Activar</button>
-              </form>
+              {% if not c.activo %}
+                <form method="post" style="display:inline;">
+                  {% csrf_token %}
+                  <button name="activar" value="{{ c.id }}" class="btn btn-sm btn-primary">Activar</button>
+                </form>
+              {% else %}
+                <form method="post" style="display:inline;">
+                  {% csrf_token %}
+                  <button name="desactivar" value="{{ c.id }}" class="btn btn-sm btn-warning">Desactivar</button>
+                </form>
+              {% endif %}
               <form method="post" style="display:inline;">
                 {% csrf_token %}
                 <button name="eliminar" value="{{ c.id }}" class="btn btn-sm btn-danger">Eliminar</button>

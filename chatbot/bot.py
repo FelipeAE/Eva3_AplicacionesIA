@@ -15,13 +15,13 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-# Configuración de la conexión a MariaDB
+# Configuración de la conexión a PostgreSQL
 db_config = {
-    "host": "localhost",
-    "user": "FelipeAE",
-    "password": "Pipe1996",
-    "dbname": "test",
-    "port": 5432
+    "host": os.getenv("DB_HOST", "localhost"),
+    "user": os.getenv("DB_USER", "postgres"),
+    "password": os.getenv("DB_PASSWORD"),
+    "dbname": os.getenv("DB_NAME", "test"),
+    "port": int(os.getenv("DB_PORT", "5432"))
 }
 
 def conectar_db():
@@ -249,13 +249,62 @@ def eliminar_sesion_si_valida(id_borrar):
 
 # ------------------- GENERACIÓN DE CONSULTA SQL (ANTHROPIC) -------------------
 
+def limpiar_sql(sql_raw):
+    """
+    Limpia el SQL generado por la IA eliminando comentarios y texto extra.
+    Solo mantiene la consulta SQL válida.
+    """
+    # Remover comentarios de línea (-- comentario)
+    lineas = sql_raw.split('\n')
+    lineas_limpias = []
+    
+    for linea in lineas:
+        # Encontrar posición del comentario de línea
+        pos_comentario = linea.find('--')
+        if pos_comentario != -1:
+            linea = linea[:pos_comentario]
+        lineas_limpias.append(linea.strip())
+    
+    sql_sin_comentarios = ' '.join(lineas_limpias).strip()
+    
+    # Buscar la primera aparición de SELECT y tomar solo hasta el punto y coma o final
+    inicio_select = sql_sin_comentarios.upper().find('SELECT')
+    if inicio_select == -1:
+        return sql_sin_comentarios
+    
+    sql_desde_select = sql_sin_comentarios[inicio_select:]
+    
+    # Encontrar el final de la consulta (punto y coma o palabras clave no-SQL)
+    palabras_no_sql = ['ES INCREIBLE', '¡', 'EXCELENTE', 'PERFECTO', 'GENIAL', 'INCREÍBLE', 'MARAVILLOSO', 'FANTÁSTICO']
+    
+    sql_final = sql_desde_select
+    for palabra in palabras_no_sql:
+        pos = sql_final.upper().find(palabra)
+        if pos != -1:
+            sql_final = sql_final[:pos].strip()
+    
+    # También limpiar cualquier texto después de LIMIT si contiene no-números
+    import re
+    # Buscar LIMIT seguido de número y después texto
+    match = re.search(r'(LIMIT\s+\d+)\s+[A-Z]', sql_final, re.IGNORECASE)
+    if match:
+        sql_final = sql_final[:match.start() + len(match.group(1))]
+    
+    # Asegurar que termina con punto y coma
+    if not sql_final.endswith(';'):
+        sql_final += ';'
+        
+    return sql_final
+
 def obtener_consulta_sql(pregunta, historial, terminos_excluidos=None):
-    contexto = ContextoPrompt.objects.filter(activo=True).first()
-    prompt_base = contexto.prompt_sistema if contexto else "Eres un asistente experto en análisis de datos para RRHH universitarios. Responde preguntas basadas en las siguientes tablas relacionales:\n" + ESTRUCTURA_TABLA
     """
     Utiliza Anthropic (Claude) para generar la consulta SQL en base a la pregunta del usuario
     y el historial de mensajes de la sesión.
     """
+    
+    # Para SQL siempre usamos el prompt estándar, NO el contexto personalizado
+    prompt_base = "Eres un asistente experto en análisis de datos para RRHH universitarios. Responde preguntas basadas en las siguientes tablas relacionales:\n" + ESTRUCTURA_TABLA
+    logging.info("USANDO PROMPT ESTÁNDAR PARA SQL - SIN CONTEXTO PERSONALIZADO")
     
     # Agregar información sobre términos excluidos si existen
     exclusiones_info = ""
@@ -305,7 +354,14 @@ Tu respuesta debe ser solo la consulta SQL, sin explicaciones adicionales.
         messages=[{"role": "user", "content": system_prompt}] + historial
     )
 
-    return response.content[0].text.strip()
+    sql_raw = response.content[0].text.strip()
+    
+    # Limpiar el SQL de comentarios extras y texto no SQL
+    sql_limpio = limpiar_sql(sql_raw)
+    logging.info(f"SQL original: {sql_raw}")
+    logging.info(f"SQL limpio: {sql_limpio}")
+    
+    return sql_limpio
 
 # ------------------- GENERACIÓN DE RESPUESTA FINAL (ANTHROPIC) -------------------
 
@@ -315,6 +371,12 @@ def generar_respuesta_final(pregunta, resultado_sql, historial):
     a partir de la pregunta original y los resultados obtenidos de la consulta SQL.
     
     """
+    # Obtener contexto personalizado si existe
+    contexto = ContextoPrompt.objects.filter(activo=True).first()
+    contexto_personalizado = ""
+    if contexto:
+        contexto_personalizado = f"\n\nINSTRUCCIÓN ESPECIAL DEL USUARIO: {contexto.prompt_sistema}"
+    
     prompt = f"""Dada la siguiente pregunta:
 \"{pregunta}\"
 Y los siguientes resultados:
@@ -325,7 +387,7 @@ Genera una respuesta clara para un usuario de RRHH universitario. Sigue estas pa
 - Muestra cifras con formato de pesos chilenos ($ 1.000.000).
 - Si hay varios datos personales o contratos, incluye un JSON al final así: {{"id_contrato": [12, 15, 18]}} o {{"id_persona": [5, 7, 9]}}.
 - Esa instrucción no debe ser explicada, solo insertada al final como dato estructurado, la instruccion que esta puesta arriba es solo un ejemplo no tomes ese dato para dar informacion, tienes que buscar el dato especifico de la informacion que se te pide o de la persona como tal o contrato de donde extrajiste la informacion.
-- Si no hay datos, indica que no se encontró información y sugiere reformular la pregunta.
+- Si no hay datos, indica que no se encontró información y sugiere reformular la pregunta.{contexto_personalizado}
 """
 
     response = client.messages.create(
