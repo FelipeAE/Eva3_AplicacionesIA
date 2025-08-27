@@ -1,0 +1,76 @@
+/* Typing indicator animation */
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.typing-indicator span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #6c757d;
+  animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 200ms;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 400ms;
+}
+
+@keyframes typing {
+  0%, 60%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  30% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Dark theme support */
+[data-bs-theme="dark"] .typing-indicator span {
+  background-color: #adb5bd;
+}
+
+/* Theme transitions */
+* {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Dark theme overrides for better contrast */
+[data-bs-theme="dark"] .bg-white {
+  background-color: var(--bs-dark) !important;
+  border-color: var(--bs-secondary) !important;
+}
+
+[data-bs-theme="dark"] .bg-light {
+  background-color: var(--bs-dark) !important;
+}
+
+[data-bs-theme="dark"] .border {
+  border-color: var(--bs-secondary) !important;
+}
+
+[data-bs-theme="dark"] .text-muted {
+  color: var(--bs-secondary) !important;
+}
+
+/* Card improvements for dark mode */
+[data-bs-theme="dark"] .card {
+  background-color: var(--bs-dark);
+  border-color: var(--bs-secondary);
+}
+
+[data-bs-theme="dark"] .modal-content {
+  background-color: var(--bs-dark);
+  border-color: var(--bs-secondary);
+}

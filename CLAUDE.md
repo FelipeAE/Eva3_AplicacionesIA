@@ -107,11 +107,35 @@ Always use specific exception handling (e.g., `json.JSONDecodeError` instead of 
 ### AI Response Processing
 AI responses may contain JSON blocks at the end (e.g., `{"id_contrato": [12, 15, 18]}`) that are extracted for UI interactions like modal popups showing detailed information.
 
+## Recent Improvements (August 2025)
+
+### Frontend Enhancements
+- **Mobile Responsiveness**: Complete mobile-first redesign with responsive layouts
+  - Mobile sidebar as overlay (280px width) with hamburger menu
+  - Adaptive toolbar: simplified buttons on mobile, full toolbar on desktop
+  - Optimized input layout: vertical stacking on small screens (<576px)
+  - Mobile-specific CSS improvements and touch-friendly interactions
+- **UX Improvements**: 
+  - Theme toggle moved from floating button to user dropdown (both mobile and desktop)
+  - Active context indicator in chat interface header
+  - Removed non-functional keyboard shortcuts helper
+  - Improved modal behavior on mobile devices
+
+### Backend Bug Fixes
+- **Contract API**: Fixed ValueError in `/api/contrato/{id}/` endpoint for non-numeric values like "No informa"
+- **Data Handling**: Added safe_float_convert() function to handle string values in numeric fields
+
+### Technical Improvements
+- **Responsive Design**: Implemented Bootstrap breakpoints with custom CSS
+- **Mobile Meta Tags**: Updated viewport and app metadata for better mobile experience
+- **Error Handling**: Improved numeric field conversion with fallback to None for invalid values
+
 ## File Structure Context
 
 - `chatbot/bot.py`: Core AI integration and database interaction functions
-- `chatbot/views.py`: Django views handling web interface and API endpoints
+- `chatbot/views/api_views.py`: REST API endpoints with improved error handling
 - `chatbot/models.py`: Database models (mix of managed and unmanaged)
-- `chatbot/templates/`: HTML templates with Bootstrap 5 styling
+- `frontend/src/components/`: React components with mobile responsiveness
+- `frontend/src/styles/`: CSS files with mobile-first responsive design
 - `chatbot_web/`: Django project configuration
 - Utility scripts in root directory for database maintenance tasks
