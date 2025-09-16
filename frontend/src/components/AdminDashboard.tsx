@@ -69,7 +69,7 @@ const AdminDashboard: React.FC = () => {
     );
   }
 
-  const { statistics, active_users, recent_sessions, blocked_questions, frequent_excluded_terms } = dashboardData;
+  const { statistics, active_users, recent_sessions, blocked_questions, frequent_excluded_terms, active_context } = dashboardData;
 
   return (
     <div>
@@ -250,6 +250,47 @@ const AdminDashboard: React.FC = () => {
                 ))
               ) : (
                 <p className="text-muted">No hay términos excluidos registrados.</p>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Contexto Activo */}
+      <div className="row">
+        <div className="col-lg-6 mb-4">
+          <div className="card">
+            <div className="card-header bg-primary text-white">
+              <h5 className="card-title mb-0">🧠 Contexto Activo</h5>
+            </div>
+            <div className="card-body">
+              {active_context ? (
+                <div>
+                  <div className="mb-3">
+                    <h6 className="text-primary d-flex align-items-center">
+                      <span className="badge bg-success me-2">Activo</span>
+                      {active_context.nombre}
+                    </h6>
+                  </div>
+                  <div className="border-start border-3 border-primary ps-3 mb-3">
+                    <small className="text-muted">
+                      <strong>¿Qué hace este contexto?</strong><br />
+                      <em>{active_context.prompt}</em>
+                    </small>
+                  </div>
+                  <div className="text-center">
+                    <small className="text-muted">
+                      El chatbot está usando este contexto personalizado para generar respuestas
+                    </small>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center text-muted py-3">
+                  <i className="fas fa-exclamation-triangle fa-2x mb-3 text-warning"></i>
+                  <h6>No hay contexto activo</h6>
+                  <p className="mb-0">Se está usando el contexto por defecto del sistema</p>
+                  <small>Ve a la pestaña "Contextos" para activar uno personalizado</small>
+                </div>
               )}
             </div>
           </div>

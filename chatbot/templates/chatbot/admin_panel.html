@@ -318,6 +318,52 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Contexto Activo -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-brain"></i>
+                        Contexto Activo
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if contexto_activo %}
+                        <div class="mb-3">
+                            <h6 class="text-primary">
+                                <i class="fas fa-check-circle me-2"></i>
+                                {{ contexto_activo.nombre }}
+                            </h6>
+                        </div>
+                        <div class="border-start border-3 border-primary ps-3">
+                            <small class="text-muted">
+                                <strong>¿Qué hace este contexto?</strong><br>
+                                <em>{{ contexto_activo.prompt_sistema }}</em>
+                            </small>
+                        </div>
+                        <div class="mt-3">
+                            <a href="{% url 'gestionar_contextos' %}" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-cogs"></i>
+                                Gestionar Contextos
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="text-center text-muted">
+                            <i class="fas fa-exclamation-triangle fa-2x mb-2"></i>
+                            <p class="mb-2">No hay contexto activo</p>
+                            <small>Se está usando el contexto por defecto del sistema</small>
+                            <div class="mt-3">
+                                <a href="{% url 'gestionar_contextos' %}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-plus"></i>
+                                    Activar Contexto
+                                </a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Gestión de contextos -->

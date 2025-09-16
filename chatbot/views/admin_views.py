@@ -12,17 +12,28 @@ from ..models import SesionChat, MensajeChat, PreguntaBloqueada, ContextoPrompt,
 def gestionar_contextos(request):
     if request.method == "POST":
         if "activar" in request.POST:
+            contexto = ContextoPrompt.objects.get(id=request.POST["activar"])
             ContextoPrompt.objects.update(activo=False)
             ContextoPrompt.objects.filter(id=request.POST["activar"]).update(activo=True)
+            from django.contrib import messages
+            messages.success(request, f'✅ Contexto "{contexto.nombre}" activado: {contexto.prompt_sistema[:100]}...')
         elif "desactivar" in request.POST:
+            contexto = ContextoPrompt.objects.get(id=request.POST["desactivar"])
             ContextoPrompt.objects.filter(id=request.POST["desactivar"]).update(activo=False)
+            from django.contrib import messages
+            messages.warning(request, f'⚠️ Contexto "{contexto.nombre}" desactivado. Se usará el contexto por defecto.')
         elif "crear" in request.POST:
             nombre = request.POST.get("nombre", "").strip()
             texto = request.POST.get("prompt_sistema", "").strip()
             if nombre and texto:
                 ContextoPrompt.objects.create(nombre=nombre, prompt_sistema=texto)
+                from django.contrib import messages
+                messages.success(request, f'✅ Contexto "{nombre}" creado exitosamente.')
         elif "eliminar" in request.POST:
+            contexto = ContextoPrompt.objects.get(id=request.POST["eliminar"])
             ContextoPrompt.objects.filter(id=request.POST["eliminar"]).delete()
+            from django.contrib import messages
+            messages.error(request, f'🗑️ Contexto "{contexto.nombre}" eliminado.')
         return redirect('gestionar_contextos')
 
     contextos = ContextoPrompt.objects.all()
@@ -55,6 +66,9 @@ def panel_admin(request):
     # Contextos disponibles
     contextos = ContextoPrompt.objects.all()
     
+    # Contexto activo
+    contexto_activo = ContextoPrompt.objects.filter(activo=True).first()
+    
     # Términos más excluidos
     terminos_frecuentes = TerminoExcluido.objects.values('palabra').annotate(
         count=Count('palabra')
@@ -71,6 +85,7 @@ def panel_admin(request):
         'sesiones_recientes': sesiones_recientes,
         'preguntas_bloqueadas_recientes': preguntas_bloqueadas_recientes,
         'contextos': contextos,
+        'contexto_activo': contexto_activo,
         'terminos_frecuentes': terminos_frecuentes,
     }
     

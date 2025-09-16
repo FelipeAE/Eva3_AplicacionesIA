@@ -102,6 +102,7 @@ Genera una consulta SQL para el motor PostgreSQL que responda la pregunta del us
 11. Si el usuario pregunta por "los anteriores" o "las personas anteriores", asume que se refiere al resultado más reciente de la conversación, y genera una consulta coherente filtrando por los mismos nombres si es posible.
 12. Si no puedes generar una consulta válida o la pregunta no se relaciona con el contexto de los datos, responde amablemente que no puedes responder a esa consulta.
 13. OBLIGATORIO: Si hay términos excluidos configurados (mostrados arriba), debes aplicar TODOS los filtros de exclusión correspondientes usando condiciones WHERE con NOT LIKE.
+14. MUY IMPORTANTE: SIEMPRE incluye los campos de ID relevantes (id_contrato, id_persona, id_funcion, id_tiempo) en el SELECT para permitir referencias posteriores. Por ejemplo, si consultas datos de contratos, SIEMPRE incluye c.id_contrato en el SELECT.
 
 Tu respuesta debe ser solo la consulta SQL, sin explicaciones adicionales.
 """

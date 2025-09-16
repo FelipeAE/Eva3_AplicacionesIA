@@ -19,6 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('chatbot.api_urls')),  # API URLs for React frontend
     path('', include('chatbot.urls')),  # Include chatbot app URLs
     path('accounts/', include('django.contrib.auth.urls')),  # Authentication URLs
 ]

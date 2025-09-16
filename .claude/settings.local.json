@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python manage.py:*)",
+      "Bash(python test:*)",
+      "Bash(curl:*)",
+      "Bash(sed:*)",
+      "Bash(python:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(npx create-react-app:*)",
+      "Bash(npm install:*)",
+      "Bash(npm start)",
+      "Bash(pip install:*)",
+      "Bash(git log:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm create:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npm run dev:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

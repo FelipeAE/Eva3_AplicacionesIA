@@ -3,10 +3,19 @@ from django.db import connection
 import json
 import re
 import logging
+from decimal import Decimal
 
 from ..models import SesionChat, MensajeChat, PreguntaBloqueada, DatosFuenteMensaje, TerminoExcluido
 from .validation_service import ValidationService
 from .ai_service import AIService
+
+
+class DecimalEncoder(json.JSONEncoder):
+    """JSON encoder that handles Decimal objects"""
+    def default(self, obj):
+        if isinstance(obj, Decimal):
+            return float(obj)
+        return super().default(obj)
 
 
 class ChatService:
@@ -114,14 +123,11 @@ class ChatService:
     @staticmethod
     def _save_response(sesion, respuesta, filas, tipo_relacionado, ids_relacionados):
         """Guarda la respuesta y metadatos asociados"""
-        # Buscar JSON en la respuesta
-        match = re.search(r"\{.*?\}", respuesta)
+        # Los IDs ya fueron extraídos por AIService, no necesitamos parsearlo de nuevo
         ids_extra = None
-        if match:
-            try:
-                ids_extra = json.loads(match.group())
-            except json.JSONDecodeError:
-                pass
+        if tipo_relacionado and ids_relacionados:
+            # Crear el JSON que espera el frontend basado en los datos ya extraídos
+            ids_extra = {tipo_relacionado: ids_relacionados}
         
         # Crear mensaje
         mensaje = MensajeChat.objects.create(
@@ -143,7 +149,7 @@ class ChatService:
         
         # Guardar datos fuente
         if filas:
-            json_valido = json.dumps(filas)
+            json_valido = json.dumps(filas, cls=DecimalEncoder)
             DatosFuenteMensaje.objects.create(mensaje=mensaje, datos=json_valido)
         
         return {

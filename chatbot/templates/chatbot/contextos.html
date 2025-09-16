@@ -2,6 +2,16 @@
 {% block content %}
 <div class="container mt-4">
   <h3>⚙️ Administración de Contextos de Prompt</h3>
+  
+  <!-- Mostrar mensajes de Django -->
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
 
   <form method="post" class="mb-4">
     {% csrf_token %}
@@ -13,20 +23,39 @@
 
   {% if contextos %}
     <h5>📋 Contextos existentes</h5>
-    <table class="table">
+    <table class="table table-hover">
       <thead>
         <tr>
-          <th>Nombre</th>
-          <th>Activo</th>
-          <th>Acciones</th>
+          <th style="width: 30%;">Contexto</th>
+          <th style="width: 15%;">Estado</th>
+          <th style="width: 25%;">Acciones</th>
         </tr>
       </thead>
       <tbody>
         {% for c in contextos %}
-          <tr>
-            <td>{{ c.nombre }}</td>
-            <td>{% if c.activo %}✅{% else %}—{% endif %}</td>
-            <td>
+          <tr style="vertical-align: top;">
+            <td class="py-3">
+              <div class="mb-2">
+                <strong class="fs-6">{{ c.nombre }}</strong>
+                {% if c.activo %}
+                  <span class="badge bg-success ms-2">Activo</span>
+                {% endif %}
+              </div>
+              <div class="text-muted border-start border-3 border-info ps-3 mt-2">
+                <small>
+                  <strong class="text-dark">¿Qué hace este contexto?</strong><br>
+                  <em>{{ c.prompt_sistema }}</em>
+                </small>
+              </div>
+            </td>
+            <td class="py-3">
+              {% if c.activo %}
+                <span class="text-success">✅ Activo</span>
+              {% else %}
+                <span class="text-secondary">— Inactivo</span>
+              {% endif %}
+            </td>
+            <td class="py-3">
               {% if not c.activo %}
                 <form method="post" style="display:inline;">
                   {% csrf_token %}

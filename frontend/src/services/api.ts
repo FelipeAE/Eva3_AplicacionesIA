@@ -185,6 +185,7 @@ export interface DashboardData {
   recent_sessions: RecentSession[];
   blocked_questions: BlockedQuestion[];
   frequent_excluded_terms: FrequentTerm[];
+  active_context?: Context | null;
 }
 
 export interface CreateContextRequest {

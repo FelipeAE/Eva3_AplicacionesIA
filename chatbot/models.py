@@ -73,7 +73,7 @@ class MensajeChat(models.Model):
 
 class PreguntaBloqueada(models.Model):
     id = models.AutoField(primary_key=True)
-    sesion = models.ForeignKey(SesionChat, to_field='id_sesion', db_column='id_sesion', on_delete=models.DO_NOTHING)
+    sesion = models.ForeignKey(SesionChat, to_field='id_sesion', db_column='id_sesion', on_delete=models.DO_NOTHING, related_name='preguntas_bloqueadas')
     pregunta = models.TextField()
     razon = models.TextField()
     fecha = models.DateTimeField()

@@ -9,6 +9,7 @@ from .api import (
     api_session_delete,
     
     # Admin APIs
+    api_admin_dashboard,
     api_contexts_list,
     api_context_create,
     api_context_activate,
@@ -19,12 +20,22 @@ from .api import (
     api_excluded_terms,
     api_excluded_term_add,
     api_excluded_term_delete,
+    
+    # Auth APIs
+    api_login,
+    api_logout,
+    api_auth_check,
 )
 
 # Existing API views
-from .views.api_views import detalle_contrato, detalle_generico
+from .views.api_views import detalle_contrato, detalle_contratos_bulk, detalle_generico
 
 urlpatterns = [
+    # ==================== AUTH APIs ====================
+    path('auth/login/', api_login, name='api_login'),
+    path('auth/logout/', api_logout, name='api_logout'),
+    path('auth/check/', api_auth_check, name='api_auth_check'),
+    
     # ==================== CHAT APIs ====================
     path('sessions/', api_sessions_list, name='api_sessions_list'),
     path('sessions/create/', api_session_create, name='api_session_create'),
@@ -34,6 +45,7 @@ urlpatterns = [
     path('sessions/<int:session_id>/delete/', api_session_delete, name='api_session_delete'),
     
     # ==================== ADMIN APIs ====================
+    path('admin/dashboard/', api_admin_dashboard, name='api_admin_dashboard'),
     path('admin/contexts/', api_contexts_list, name='api_contexts_list'),
     path('admin/contexts/create/', api_context_create, name='api_context_create'),
     path('admin/contexts/<int:context_id>/activate/', api_context_activate, name='api_context_activate'),
@@ -47,5 +59,6 @@ urlpatterns = [
     
     # ==================== EXISTING APIs ====================
     path('contrato/<int:id>/', detalle_contrato, name='api_detalle_contrato'),
+    path('contratos/bulk/', detalle_contratos_bulk, name='api_detalle_contratos_bulk'),
     path('detalle/<str:tipo>/<int:id>/', detalle_generico, name='api_detalle_generico'),
 ]
